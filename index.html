@@ -6,102 +6,129 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Home Care">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Home Care Planner</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:'DM Sans','Segoe UI',sans-serif;background:#FAFAF7;color:#2D2D2D;min-height:100vh}
-button,input,select{font-family:inherit}
-.hd{background:#fff;border-bottom:1px solid #E8E6E1;padding:20px 20px 14px;position:sticky;top:0;z-index:50}
-.hd-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
-.hd h1{font-family:'DM Serif Display',Georgia,serif;font-size:24px;font-weight:400;letter-spacing:-.5px}
-.hd .dt{font-size:13px;color:#8B8680;margin-top:3px}
-.hd-act{display:flex;gap:8px}
-.bs{background:none;border:1px solid #E0DDD8;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:14px;color:#6B6560}
-.ba{background:#5B7A58;border:none;border-radius:8px;padding:8px 16px;cursor:pointer;font-size:13px;color:#fff;font-weight:600}
-.pr{display:flex;gap:4px;margin-bottom:14px;flex-wrap:wrap}
-.pc{flex:1 1 0;min-width:48px;border-radius:8px;padding:6px 4px;text-align:center}
-.pc .pv{font-size:14px;font-weight:700}
-.pc .pl{font-size:8px;text-transform:uppercase;letter-spacing:.3px;opacity:.75;margin-top:1px}
-.ts{display:flex;gap:4px;flex-wrap:wrap}
-.tb{padding:6px 12px;border-radius:20px;border:1px solid #E0DDD8;background:transparent;color:#6B6560;font-size:11px;font-weight:500;cursor:pointer}
-.tb.ac{border-color:#5B7A58;background:#5B7A58;color:#fff}
-.sp{background:#fff;border-bottom:1px solid #E8E6E1;padding:14px 20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.sp label{font-size:12px;color:#8B8680;font-weight:500;text-transform:uppercase;letter-spacing:.5px}
-.sp select{padding:6px 12px;border-radius:8px;border:1px solid #E0DDD8;font-size:12px;background:#FAFAF7;cursor:pointer}
-.br{padding:6px 14px;border-radius:8px;border:1px solid #E8C4C4;background:#FFF5F5;color:#8B4D4D;font-size:12px;cursor:pointer;font-weight:500}
-.ds{background:#fff;border-bottom:1px solid #E8E6E1;padding:12px 20px;display:flex;gap:4px}
-.db{flex:1;padding:8px 4px;border-radius:8px;border:1px solid #E8E6E1;background:transparent;color:#6B6560;font-size:11px;font-weight:500;cursor:pointer;text-align:center}
-.db.ac{border:2px solid #4A6D8C;background:#4A6D8C;color:#fff;font-weight:700}
-.db.td:not(.ac){background:#EFF3F8;color:#4A6D8C}
-.mn{padding:16px 20px 120px}
-.vh{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.vh h2{font-size:18px;font-weight:600}
-.vh .vs{font-size:12px;color:#8B8680;margin-top:2px}
-.rg{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center}
-.ri{width:38px;height:38px;border-radius:50%;background:#FAFAF7;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#5B7A58}
-.pb{height:4px;background:#E8E6E1;border-radius:4px;margin-bottom:18px}
-.pf{height:100%;border-radius:4px;background:linear-gradient(90deg,#5B7A58,#8BA888);transition:width .4s}
-.tl{display:flex;flex-direction:column;gap:6px}
-.tc{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
-.tc.dn{background:#F5F5F2;opacity:.55}
-.tc:active{transform:scale(.985)}
-.cb{width:22px;height:22px;border-radius:6px;border:2px solid #ccc;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.cb.ck{background:#5B7A58;border-color:#5B7A58}
-.cb.ck::after{content:'\2713';color:#fff;font-size:12px}
-.ti{flex:1;min-width:0}
-.tn{font-size:14px;font-weight:500}
-.tn.st{text-decoration:line-through;color:#8B8680}
-.tt{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap}
-.tg{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:500;text-transform:uppercase;letter-spacing:.4px}
-.tz{background:#F0EFEC;color:#6B6560;font-weight:400;text-transform:none;letter-spacing:0}
-.td2{background:none;border:none;cursor:pointer;font-size:14px;color:#B0ACA6;padding:4px 6px}
-.sh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding:0 2px;margin-top:24px}
-.sh h3{font-size:14px;font-weight:600;margin:0}
-.st2{display:flex;flex-direction:column;gap:4px}
-.mt{border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer}
-.mc{width:18px;height:18px;border-radius:5px;border:2px solid;flex-shrink:0}
-.mt span{font-size:13px}
-.vm{background:none;border:none;cursor:pointer;font-size:12px;font-weight:500;text-align:left;padding:4px 0}
-.mo{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;z-index:100;padding:24px}
-.md{background:#fff;border-radius:16px;padding:28px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.15);max-height:85vh;overflow-y:auto}
-.md h3{font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-weight:400;margin-bottom:20px}
-.fd{margin-bottom:16px}
-.fl{font-size:11px;color:#8B8680;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px}
-.fd input,.fd select{width:100%;padding:10px 14px;border-radius:8px;border:1px solid #E0DDD8;font-size:14px;outline:none}
-.fd select{font-size:13px;cursor:pointer}
-.fr{display:flex;gap:12px}
-.fr>div{flex:1}
-.dp{display:flex;gap:4px;flex-wrap:wrap}
-.dp button{flex:1;padding:8px 4px;border-radius:8px;border:1px solid #E0DDD8;background:transparent;color:#6B6560;font-size:11px;font-weight:500;cursor:pointer}
-.dp button.sl{border:2px solid #4A6D8C;background:#4A6D8C;color:#fff}
-.mb{display:flex;gap:10px;margin-top:20px}
-.mb button{flex:1;padding:12px;border-radius:10px;font-size:14px;cursor:pointer;font-weight:500}
-.bc{border:1px solid #E0DDD8;background:transparent;color:#6B6560}
-.bf{border:none;background:#5B7A58;color:#fff;font-weight:600}
-.bd{width:100%;padding:12px;border-radius:10px;border:1px solid #E8C4C4;background:#FFF5F5;font-size:14px;cursor:pointer;color:#8B4D4D;font-weight:600;margin-bottom:8px}
-.cf{position:fixed;top:-10px;pointer-events:none;z-index:200;animation:cfall 2s ease-in forwards}
-@keyframes cfall{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#FAFAF7;color:#2D2D2D;min-height:100vh;font-size:14px}
+button,input,select{font-family:inherit;font-size:inherit}
+
+.hd{background:#fff;border-bottom:1px solid #E8E6E1;padding:16px 16px 12px;position:sticky;top:0;z-index:50}
+.hd-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.hd h1{font-size:22px;font-weight:700;letter-spacing:-0.5px}
+.hd .dt{font-size:12px;color:#8B8680;margin-top:2px}
+.hd-btns{display:flex;gap:6px}
+.hd-btns button{border-radius:8px;padding:7px 12px;cursor:pointer;font-size:12px;font-weight:600;border:none}
+.btn-gear{background:#F0EFEC;color:#6B6560}
+.btn-text{background:#007AFF;color:#fff}
+.btn-add{background:#5B7A58;color:#fff}
+
+.prog{display:flex;gap:3px;margin-bottom:12px}
+.prog-c{flex:1;border-radius:6px;padding:5px 3px;text-align:center}
+.prog-c .pv{font-size:13px;font-weight:700}
+.prog-c .pl{font-size:7px;text-transform:uppercase;letter-spacing:0.3px;opacity:0.7}
+
+.tabs{display:flex;gap:3px;flex-wrap:wrap}
+.tabs button{padding:5px 10px;border-radius:16px;border:1px solid #E0DDD8;background:transparent;color:#6B6560;font-size:11px;font-weight:500;cursor:pointer}
+.tabs button.on{border-color:#5B7A58;background:#5B7A58;color:#fff}
+
+.filt{background:#fff;border-bottom:1px solid #E8E6E1;padding:10px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.filt label{font-size:11px;color:#8B8680;font-weight:600;text-transform:uppercase}
+.filt select{padding:5px 10px;border-radius:6px;border:1px solid #E0DDD8;font-size:12px;background:#FAFAF7}
+.filt .rst{padding:5px 12px;border-radius:6px;border:1px solid #E8C4C4;background:#FFF5F5;color:#8B4D4D;font-size:11px;cursor:pointer;font-weight:600}
+
+.days{background:#fff;border-bottom:1px solid #E8E6E1;padding:10px 16px;display:flex;gap:3px}
+.days button{flex:1;padding:7px 2px;border-radius:6px;border:1px solid #E8E6E1;background:transparent;color:#6B6560;font-size:10px;font-weight:500;cursor:pointer;text-align:center}
+.days button.on{border:2px solid #4A6D8C;background:#4A6D8C;color:#fff;font-weight:700}
+.days button.now:not(.on){background:#EFF3F8;color:#4A6D8C}
+
+.main{padding:14px 16px 100px}
+.vhdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.vhdr h2{font-size:17px;font-weight:600}
+.vhdr .sub{font-size:11px;color:#8B8680;margin-top:1px}
+.ring{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.ring-in{width:34px;height:34px;border-radius:50%;background:#FAFAF7;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#5B7A58}
+.pbar{height:3px;background:#E8E6E1;border-radius:3px;margin-bottom:16px}
+.pfill{height:100%;border-radius:3px;background:#5B7A58}
+
+.tlist{display:flex;flex-direction:column;gap:5px}
+.tcard{background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:9px;padding:11px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;-webkit-user-select:none;user-select:none}
+.tcard.done{background:#F5F5F2;opacity:0.5}
+.tcard:active{opacity:0.8}
+.chk{width:20px;height:20px;border-radius:5px;border:2px solid #ccc;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.chk.on{background:#5B7A58;border-color:#5B7A58}
+.chk.on::after{content:’\2713’;color:#fff;font-size:11px;font-weight:bold}
+.tinfo{flex:1;min-width:0}
+.tname{font-size:13px;font-weight:500;line-height:1.3}
+.tname.struck{text-decoration:line-through;color:#8B8680}
+.ttags{display:flex;gap:5px;margin-top:3px;flex-wrap:wrap}
+.tag{font-size:9px;padding:1px 6px;border-radius:8px;font-weight:500}
+.tag-z{background:#F0EFEC;color:#6B6560}
+.tbtn{background:none;border:none;cursor:pointer;font-size:16px;color:#B0ACA6;padding:2px 4px}
+
+.sec-hd{display:flex;justify-content:space-between;align-items:center;margin:20px 0 6px;padding:0 2px}
+.sec-hd h3{font-size:13px;font-weight:600}
+.sec-list{display:flex;flex-direction:column;gap:3px}
+.mini{border-radius:7px;padding:9px 10px;display:flex;align-items:center;gap:8px;cursor:pointer}
+.mini-chk{width:16px;height:16px;border-radius:4px;border:2px solid;flex-shrink:0}
+.mini span{font-size:12px}
+.vmore{background:none;border:none;cursor:pointer;font-size:11px;font-weight:500;padding:3px 0}
+
+.overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modal{background:#fff;border-radius:14px;padding:24px;width:100%;max-width:380px;max-height:80vh;overflow-y:auto}
+.modal h3{font-size:20px;font-weight:700;margin-bottom:16px}
+.fld{margin-bottom:14px}
+.fld-l{font-size:10px;color:#8B8680;text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:4px;font-weight:600}
+.fld input,.fld select{width:100%;padding:9px 12px;border-radius:7px;border:1px solid #E0DDD8;font-size:13px;outline:none}
+.fld-r{display:flex;gap:10px}
+.fld-r>div{flex:1}
+.dpk{display:flex;gap:3px}
+.dpk button{flex:1;padding:7px 2px;border-radius:6px;border:1px solid #E0DDD8;background:transparent;color:#6B6560;font-size:10px;font-weight:500;cursor:pointer}
+.dpk button.on{border:2px solid #4A6D8C;background:#4A6D8C;color:#fff}
+.mbtns{display:flex;gap:8px;margin-top:16px}
+.mbtns button{flex:1;padding:11px;border-radius:9px;font-size:13px;cursor:pointer;font-weight:600}
+.mbtn-c{border:1px solid #E0DDD8;background:transparent;color:#6B6560}
+.mbtn-ok{border:none;background:#5B7A58;color:#fff}
+.mbtn-del{width:100%;padding:11px;border-radius:9px;border:1px solid #E8C4C4;background:#FFF5F5;font-size:13px;cursor:pointer;color:#8B4D4D;font-weight:600;margin-bottom:6px}
+
+.sms-modal .task-pick{max-height:40vh;overflow-y:auto;border:1px solid #E8E6E1;border-radius:8px;margin-bottom:12px}
+.sms-row{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid #F0EFEC;cursor:pointer}
+.sms-row:last-child{border-bottom:none}
+.sms-chk{width:18px;height:18px;border-radius:4px;border:2px solid #ccc;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.sms-chk.on{background:#007AFF;border-color:#007AFF}
+.sms-chk.on::after{content:’\2713’;color:#fff;font-size:10px;font-weight:bold}
+.sms-name{font-size:12px;flex:1}
+.sms-zone{font-size:10px;color:#8B8680}
+.sms-phone{margin-bottom:12px}
+.sms-phone input{width:100%;padding:9px 12px;border-radius:7px;border:1px solid #E0DDD8;font-size:13px;outline:none}
+.sms-send{width:100%;padding:12px;border-radius:9px;border:none;background:#007AFF;color:#fff;font-size:14px;font-weight:600;cursor:pointer}
+.sms-send:disabled{opacity:0.4}
+.sms-sel-all{font-size:11px;color:#007AFF;cursor:pointer;background:none;border:none;font-weight:600;padding:4px 0;margin-bottom:6px}
 </style>
+
 </head>
 <body>
-<div id="app">Loading...</div>
+<div id="app"></div>
 <script>
-var DAYS = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
-var DSHORT = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
-var FL = {daily:"Daily",weekly:"Weekly",monthly:"Monthly",quarterly:"Quarterly",biannual:"Biannual",annual:"Annual"};
-var ZONES = ["All","Kitchen","Bathroom","Master Bedroom","Girls' Room","Living Room","Whole House","Garage","Basement","Patio/Deck","Laundry","Entryway","Exterior","Baby/Kids"];
-var FC = {
-  daily:{bg:"#F0F4F0",border:"#8BA888",accent:"#5B7A58",tag:"#E8EFE7"},
-  weekly:{bg:"#EFF3F8",border:"#7E9ABD",accent:"#4A6D8C",tag:"#E4ECF4"},
-  monthly:{bg:"#FFF8F0",border:"#C9A96E",accent:"#8B7340",tag:"#FFF3E4"},
-  quarterly:{bg:"#F5F0F8",border:"#A088B8",accent:"#6B5080",tag:"#EDE6F4"},
-  biannual:{bg:"#F0F8F8",border:"#6BA8A8",accent:"#3D7A7A",tag:"#E4F2F2"},
-  annual:{bg:"#FFF0F0",border:"#C08080",accent:"#8B4D4D",tag:"#FAE4E4"}
+(function(){
+"use strict";
+
+var DAYS = [“Monday”,“Tuesday”,“Wednesday”,“Thursday”,“Friday”,“Saturday”,“Sunday”];
+var DS = [“Mon”,“Tue”,“Wed”,“Thu”,“Fri”,“Sat”,“Sun”];
+var FLBL = {daily:“Daily”,weekly:“Weekly”,monthly:“Monthly”,quarterly:“Quarterly”,biannual:“Biannual”,annual:“Annual”};
+var ZONES = [“All”,“Kitchen”,“Bathroom”,“Master Bedroom”,“Girls’ Room”,“Living Room”,“Whole House”,“Garage”,“Basement”,“Patio/Deck”,“Laundry”,“Entryway”,“Exterior”,“Baby/Kids”];
+var FCOL = {
+daily:{a:”#5B7A58”,t:”#E8EFE7”,b:”#8BA888”},
+weekly:{a:”#4A6D8C”,t:”#E4ECF4”,b:”#7E9ABD”},
+monthly:{a:”#8B7340”,t:”#FFF3E4”,b:”#C9A96E”},
+quarterly:{a:”#6B5080”,t:”#EDE6F4”,b:”#A088B8”},
+biannual:{a:”#3D7A7A”,t:”#E4F2F2”,b:”#6BA8A8”},
+annual:{a:”#8B4D4D”,t:”#FAE4E4”,b:”#C08080”}
 };
 
-var DT = {daily:[
+/* –– DEFAULT TASKS –– */
+var DTASKS = {
+daily:[
 {id:“d1”,name:“Wipe kitchen counters and stovetop after each use”,zone:“Kitchen”},
 {id:“d2”,name:“Load/unload dishwasher”,zone:“Kitchen”},
 {id:“d3”,name:“Clean kitchen sink and faucet (scrub and dry)”,zone:“Kitchen”},
@@ -118,47 +145,51 @@ var DT = {daily:[
 {id:“d14”,name:“Spot clean spills and messes immediately”,zone:“Whole House”},
 {id:“d15”,name:“Put everything back where it belongs before bed”,zone:“Whole House”},
 {id:“d16”,name:“Make all beds”,zone:“Whole House”},
-{id:“d17”,name:“Wipe high chair thoroughly after each meal (tray, straps, legs)”,zone:“Baby/Kids”},
+{id:“d17”,name:“Wipe high chair after each meal (tray, straps, legs)”,zone:“Baby/Kids”},
 {id:“d18”,name:“Sanitize baby bottles, sippy cups and pacifiers”,zone:“Baby/Kids”},
 {id:“d19”,name:“Wipe baby play areas and surfaces they touch”,zone:“Baby/Kids”}
-],weekly:{Monday:[
+],
+weekly:{
+Monday:[
 {id:“wm1”,name:“Deep scrub kitchen sink with baking soda”,zone:“Kitchen”},
 {id:“wm2”,name:“Descale faucet and clean around base”,zone:“Kitchen”},
-{id:“wm3”,name:“Clean stovetop thoroughly - burner grates, drip pans, knobs”,zone:“Kitchen”},
+{id:“wm3”,name:“Clean stovetop - burner grates, drip pans, knobs”,zone:“Kitchen”},
 {id:“wm4”,name:“Wipe backsplash tile by tile”,zone:“Kitchen”},
-{id:“wm5”,name:“Clean microwave inside and out (steam clean with vinegar)”,zone:“Kitchen”},
+{id:“wm5”,name:“Clean microwave inside and out (steam with vinegar)”,zone:“Kitchen”},
 {id:“wm6”,name:“Wipe all cabinet fronts and handles”,zone:“Kitchen”},
 {id:“wm7”,name:“Clean outside of all appliances (fridge, dishwasher, oven)”,zone:“Kitchen”},
 {id:“wm8”,name:“Wipe dishwasher door and handle”,zone:“Kitchen”},
 {id:“wm9”,name:“Clean dish drying rack/mat”,zone:“Kitchen”},
 {id:“wm10”,name:“Wipe garbage can lid and exterior”,zone:“Kitchen”},
-{id:“wm11”,name:“Clean out fridge - toss expired food, wipe shelves and drawers”,zone:“Kitchen”},
+{id:“wm11”,name:“Clean out fridge - toss expired food, wipe shelves”,zone:“Kitchen”},
 {id:“wm12”,name:“Wipe kitchen light switches and outlet covers”,zone:“Kitchen”},
 {id:“wm13”,name:“Mop kitchen floor on hands and knees (corners and edges)”,zone:“Kitchen”}
-],Tuesday:[
+],
+Tuesday:[
 {id:“wt1”,name:“Scrub toilet - inside bowl, under rim with brush”,zone:“Bathroom”},
 {id:“wt2”,name:“Clean toilet seat top and bottom, hinges”,zone:“Bathroom”},
-{id:“wt3”,name:“Clean toilet base, behind toilet and floor around toilet”,zone:“Bathroom”},
+{id:“wt3”,name:“Clean toilet base, behind toilet and floor around it”,zone:“Bathroom”},
 {id:“wt4”,name:“Disinfect toilet handle and entire exterior”,zone:“Bathroom”},
-{id:“wt5”,name:“Scrub bathtub/shower - walls, floor, all corners and edges”,zone:“Bathroom”},
+{id:“wt5”,name:“Scrub bathtub/shower - walls, floor, all corners”,zone:“Bathroom”},
 {id:“wt6”,name:“Clean shower door both sides, tracks and runners”,zone:“Bathroom”},
 {id:“wt7”,name:“Clean showerhead and shower arm”,zone:“Bathroom”},
-{id:“wt8”,name:“Scrub shower/tub faucet, handles and all fixtures”,zone:“Bathroom”},
-{id:“wt9”,name:“Clean all shower caddies, soap dishes and holders”,zone:“Bathroom”},
-{id:“wt10”,name:“Scrub bathroom sink - drain, overflow hole, entire basin”,zone:“Bathroom”},
-{id:“wt11”,name:“Clean sink faucet, handles and base of faucet”,zone:“Bathroom”},
+{id:“wt8”,name:“Scrub shower/tub faucet, handles and fixtures”,zone:“Bathroom”},
+{id:“wt9”,name:“Clean shower caddies, soap dishes and holders”,zone:“Bathroom”},
+{id:“wt10”,name:“Scrub bathroom sink - drain, overflow hole, basin”,zone:“Bathroom”},
+{id:“wt11”,name:“Clean sink faucet, handles and base”,zone:“Bathroom”},
 {id:“wt12”,name:“Clean bathroom mirror streak-free (edges and corners)”,zone:“Bathroom”},
-{id:“wt13”,name:“Wipe bathroom counter and every item on counter”,zone:“Bathroom”},
+{id:“wt13”,name:“Wipe bathroom counter and every item on it”,zone:“Bathroom”},
 {id:“wt14”,name:“Clean toothbrush holder and soap dispenser”,zone:“Bathroom”},
 {id:“wt15”,name:“Wipe exterior of bathroom cabinets and vanity”,zone:“Bathroom”},
 {id:“wt16”,name:“Mop bathroom floor (corners, behind toilet, under vanity)”,zone:“Bathroom”},
 {id:“wt17”,name:“Empty bathroom garbage and replace liner”,zone:“Bathroom”},
 {id:“wt18”,name:“Replace all towels and washcloths with fresh ones”,zone:“Bathroom”},
 {id:“wt19”,name:“Wipe bathroom light switch, outlet and door handle”,zone:“Bathroom”},
-{id:“wt20”,name:“Wipe bathroom door both sides (fingerprints around handle)”,zone:“Bathroom”}
-],Wednesday:[
+{id:“wt20”,name:“Wipe bathroom door both sides”,zone:“Bathroom”}
+],
+Wednesday:[
 {id:“ww1”,name:“Strip and wash master bed sheets and pillowcases”,zone:“Master Bedroom”},
-{id:“ww2”,name:“Remake master bed with fresh sheets (hospital corners)”,zone:“Master Bedroom”},
+{id:“ww2”,name:“Remake master bed with fresh sheets”,zone:“Master Bedroom”},
 {id:“ww3”,name:“Dust master nightstands - top, sides and legs”,zone:“Master Bedroom”},
 {id:“ww4”,name:“Dust master dresser - top, sides, knobs”,zone:“Master Bedroom”},
 {id:“ww5”,name:“Wipe master bedroom mirror”,zone:“Master Bedroom”},
@@ -170,68 +201,74 @@ var DT = {daily:[
 {id:“ww11”,name:“Dust girls room furniture - all surfaces”,zone:“Girls’ Room”},
 {id:“ww12”,name:“Wipe girls room light switch and door handle”,zone:“Girls’ Room”},
 {id:“ww13”,name:“Sort girls hamper and start kids laundry”,zone:“Girls’ Room”}
-],Thursday:[
+],
+Thursday:[
 {id:“wh1”,name:“Dust all living room surfaces - every shelf, ledge, nook”,zone:“Living Room”},
-{id:“wh2”,name:“Dust TV screen (microfiber, no streaks)”,zone:“Living Room”},
+{id:“wh2”,name:“Dust TV screen with microfiber cloth”,zone:“Living Room”},
 {id:“wh3”,name:“Dust TV stand - top, shelves inside, back”,zone:“Living Room”},
 {id:“wh4”,name:“Dust all picture frames and wall decor”,zone:“Living Room”},
 {id:“wh5”,name:“Dust all lamps and lampshades”,zone:“Living Room”},
-{id:“wh6”,name:“Wipe coffee table and end tables (top, legs, shelf underneath)”,zone:“Living Room”},
+{id:“wh6”,name:“Wipe coffee table and end tables (top, legs, underneath)”,zone:“Living Room”},
 {id:“wh7”,name:“Fluff, flip and straighten couch cushions”,zone:“Living Room”},
 {id:“wh8”,name:“Disinfect remotes, game controllers and electronics”,zone:“Living Room”},
 {id:“wh9”,name:“Dust and wipe all windowsills throughout house”,zone:“Whole House”},
-{id:“wh10”,name:“Wipe all light switches and outlet covers throughout house”,zone:“Whole House”},
+{id:“wh10”,name:“Wipe all light switches and outlet covers”,zone:“Whole House”},
 {id:“wh11”,name:“Wipe all door handles and knobs throughout house”,zone:“Whole House”},
-{id:“wh12”,name:“Wipe all interior doors (fingerprints and smudges around handles)”,zone:“Whole House”},
-{id:“wh13”,name:“Organize entryway - shoes lined up, coats hung, bags put away”,zone:“Entryway”},
+{id:“wh12”,name:“Wipe all interior doors (fingerprints around handles)”,zone:“Whole House”},
+{id:“wh13”,name:“Organize entryway - shoes, coats, bags”,zone:“Entryway”},
 {id:“wh14”,name:“Wipe entryway bench/shelf and hooks”,zone:“Entryway”},
 {id:“wh15”,name:“Shake out and clean door mat”,zone:“Entryway”}
-],Friday:[
-{id:“wf1”,name:“Vacuum ALL carpeted areas - edges, corners, under furniture edges”,zone:“Whole House”},
+],
+Friday:[
+{id:“wf1”,name:“Vacuum ALL carpeted areas - edges, corners, under furniture”,zone:“Whole House”},
 {id:“wf2”,name:“Vacuum stairs (each step, edges and risers)”,zone:“Whole House”},
-{id:“wf3”,name:“Sweep ALL hardwood floors - under furniture edges, corners”,zone:“Whole House”},
-{id:“wf4”,name:“Mop ALL hardwood floors (move chairs, get under table)”,zone:“Whole House”},
-{id:“wf5”,name:“Vacuum under couch cushions (crumbs, toys, coins)”,zone:“Living Room”},
+{id:“wf3”,name:“Sweep ALL hardwood floors - corners, under furniture edges”,zone:“Whole House”},
+{id:“wf4”,name:“Mop ALL hardwood floors (move chairs, under table)”,zone:“Whole House”},
+{id:“wf5”,name:“Vacuum under couch cushions”,zone:“Living Room”},
 {id:“wf6”,name:“Spot treat any carpet stains”,zone:“Whole House”},
 {id:“wf7”,name:“Wipe all baseboards in high-traffic areas”,zone:“Whole House”},
-{id:“wf8”,name:“Clean floor registers and vent covers (wipe visible dust)”,zone:“Whole House”}
-],Saturday:[
+{id:“wf8”,name:“Clean floor registers and vent covers”,zone:“Whole House”}
+],
+Saturday:[
 {id:“ws1”,name:“Catch-up on anything missed this week”,zone:“Whole House”},
 {id:“ws2”,name:“Take all recycling, cardboard and bottles out”,zone:“Garage”},
 {id:“ws3”,name:“Break down all cardboard boxes”,zone:“Garage”},
-{id:“ws4”,name:“Quick garage tidy - sweep entryway, straighten items”,zone:“Garage”},
-{id:“ws5”,name:“Wipe washer exterior, lid/door and detergent tray area”,zone:“Laundry”},
+{id:“ws4”,name:“Quick garage tidy - sweep, straighten items”,zone:“Garage”},
+{id:“ws5”,name:“Wipe washer exterior, lid/door and detergent tray”,zone:“Laundry”},
 {id:“ws6”,name:“Wipe dryer exterior and clean lint trap”,zone:“Laundry”},
 {id:“ws7”,name:“Wipe laundry room counter/folding area”,zone:“Laundry”},
 {id:“ws8”,name:“Sweep/mop laundry room floor”,zone:“Laundry”},
-{id:“ws9”,name:“Wash all baby toys (teething toys, rattles, plastic toys)”,zone:“Baby/Kids”},
+{id:“ws9”,name:“Wash all baby toys (teething toys, rattles, plastic)”,zone:“Baby/Kids”},
 {id:“ws10”,name:“Sanitize doorknobs and surfaces at kid height”,zone:“Baby/Kids”},
 {id:“ws11”,name:“Wipe baby gates and safety locks”,zone:“Baby/Kids”},
 {id:“ws12”,name:“Wash all bibs, burp cloths and baby linens”,zone:“Baby/Kids”}
-],Sunday:[
+],
+Sunday:[
 {id:“wu1”,name:“Finish ALL remaining laundry - every hamper empty”,zone:“Laundry”},
-{id:“wu2”,name:“Fold and put away all clean laundry (no chair piles!)”,zone:“Laundry”},
+{id:“wu2”,name:“Fold and put away all clean laundry”,zone:“Laundry”},
 {id:“wu3”,name:“Iron or steam anything needed for the week”,zone:“Laundry”},
 {id:“wu4”,name:“Meal prep and plan for the week”,zone:“Kitchen”},
 {id:“wu5”,name:“Quick fridge check before grocery run”,zone:“Kitchen”},
 {id:“wu6”,name:“Restock cleaning supplies if running low”,zone:“Whole House”},
-{id:“wu7”,name:“Check and replace any empty toiletries (soap, TP, shampoo)”,zone:“Bathroom”},
+{id:“wu7”,name:“Check and replace empty toiletries (soap, TP, shampoo)”,zone:“Bathroom”},
 {id:“wu8”,name:“Set out clothes and bags for Monday”,zone:“Whole House”},
 {id:“wu9”,name:“Empty and reline ALL trash cans in house”,zone:“Whole House”},
 {id:“wu10”,name:“Final whole-house walkthrough - everything in its place”,zone:“Whole House”}
-]},monthly:[
-{id:“m1”,name:“Deep clean oven inside - racks, door glass (both panes), bottom”,zone:“Kitchen”},
+]
+},
+monthly:[
+{id:“m1”,name:“Deep clean oven inside - racks, door glass, bottom”,zone:“Kitchen”},
 {id:“m2”,name:“Clean range hood and filter (degrease and soak)”,zone:“Kitchen”},
 {id:“m3”,name:“Descale coffee maker/Keurig (vinegar cycle)”,zone:“Kitchen”},
 {id:“m4”,name:“Descale electric kettle”,zone:“Kitchen”},
 {id:“m5”,name:“Deep clean microwave (remove turntable, wash)”,zone:“Kitchen”},
-{id:“m6”,name:“Run dishwasher cleaning cycle (vinegar or tablet)”,zone:“Kitchen”},
+{id:“m6”,name:“Run dishwasher cleaning cycle”,zone:“Kitchen”},
 {id:“m7”,name:“Clean dishwasher door gasket, edges and filter”,zone:“Kitchen”},
-{id:“m8”,name:“Wipe top of fridge (dust and grease buildup)”,zone:“Kitchen”},
+{id:“m8”,name:“Wipe top of fridge (dust and grease)”,zone:“Kitchen”},
 {id:“m9”,name:“Clean behind and under countertop appliances”,zone:“Kitchen”},
-{id:“m10”,name:“Clean inside one section of kitchen cabinets (rotate monthly)”,zone:“Kitchen”},
+{id:“m10”,name:“Clean inside one section of kitchen cabinets”,zone:“Kitchen”},
 {id:“m11”,name:“Clean cabinet hardware (knobs and pulls)”,zone:“Kitchen”},
-{id:“m12”,name:“Clean under kitchen sink area (wipe shelf, check for leaks)”,zone:“Kitchen”},
+{id:“m12”,name:“Clean under kitchen sink area”,zone:“Kitchen”},
 {id:“m13”,name:“Clean kitchen window and window track”,zone:“Kitchen”},
 {id:“m14”,name:“Wipe kitchen light fixture and bulbs”,zone:“Kitchen”},
 {id:“m15”,name:“Dust top of kitchen cabinets”,zone:“Kitchen”},
@@ -240,10 +277,10 @@ var DT = {daily:[
 {id:“m18”,name:“Deep clean shower/tub grout with grout brush”,zone:“Bathroom”},
 {id:“m19”,name:“Descale showerhead (soak in vinegar overnight)”,zone:“Bathroom”},
 {id:“m20”,name:“Clean behind and around toilet thoroughly”,zone:“Bathroom”},
-{id:“m21”,name:“Wash shower curtain and liner in washing machine”,zone:“Bathroom”},
-{id:“m22”,name:“Clean bathroom exhaust fan cover (remove, wash, replace)”,zone:“Bathroom”},
-{id:“m23”,name:“Deep clean bathroom drain (remove hair, baking soda + vinegar)”,zone:“Bathroom”},
-{id:“m24”,name:“Clean inside medicine cabinet - wipe shelves, organize, toss expired”,zone:“Bathroom”},
+{id:“m21”,name:“Wash shower curtain and liner in machine”,zone:“Bathroom”},
+{id:“m22”,name:“Clean bathroom exhaust fan cover”,zone:“Bathroom”},
+{id:“m23”,name:“Deep clean bathroom drain (baking soda + vinegar)”,zone:“Bathroom”},
+{id:“m24”,name:“Clean inside medicine cabinet - wipe, organize, toss expired”,zone:“Bathroom”},
 {id:“m25”,name:“Clean inside vanity drawers and under-sink cabinet”,zone:“Bathroom”},
 {id:“m26”,name:“Wash all bath mats in hot water”,zone:“Bathroom”},
 {id:“m27”,name:“Sanitize toilet brush and holder (bleach soak)”,zone:“Bathroom”},
@@ -255,33 +292,33 @@ var DT = {daily:[
 {id:“m33”,name:“Wash mattress protector”,zone:“Master Bedroom”},
 {id:“m34”,name:“Vacuum mattress surface”,zone:“Master Bedroom”},
 {id:“m35”,name:“Vacuum under master bed”,zone:“Master Bedroom”},
-{id:“m36”,name:“Dust and wipe inside master dresser drawers”,zone:“Master Bedroom”},
+{id:“m36”,name:“Dust inside master dresser drawers”,zone:“Master Bedroom”},
 {id:“m37”,name:“Dust master bedroom ceiling fan blades”,zone:“Master Bedroom”},
 {id:“m38”,name:“Dust master bedroom blinds (each slat)”,zone:“Master Bedroom”},
-{id:“m39”,name:“Wipe master bedroom windowsills and window track”,zone:“Master Bedroom”},
+{id:“m39”,name:“Wipe master bedroom windowsills and track”,zone:“Master Bedroom”},
 {id:“m40”,name:“Wash girls comforters/blankets”,zone:“Girls’ Room”},
 {id:“m41”,name:“Vacuum under girls beds”,zone:“Girls’ Room”},
 {id:“m42”,name:“Wipe girls room baseboards”,zone:“Girls’ Room”},
 {id:“m43”,name:“Clean girls room light switch plates”,zone:“Girls’ Room”},
-{id:“m44”,name:“Vacuum under ALL living room furniture (move pieces)”,zone:“Living Room”},
+{id:“m44”,name:“Vacuum under ALL living room furniture”,zone:“Living Room”},
 {id:“m45”,name:“Dust ceiling fan blades in living room”,zone:“Living Room”},
 {id:“m46”,name:“Clean all interior windows (glass, frames, tracks)”,zone:“Living Room”},
 {id:“m47”,name:“Dust all window blinds (each slat, both sides)”,zone:“Living Room”},
 {id:“m48”,name:“Wipe all baseboards throughout entire house”,zone:“Whole House”},
-{id:“m49”,name:“Dust all ceiling fans and light fixtures throughout house”,zone:“Whole House”},
+{id:“m49”,name:“Dust all ceiling fans and light fixtures”,zone:“Whole House”},
 {id:“m50”,name:“Dust all air vents and return registers”,zone:“Whole House”},
 {id:“m51”,name:“Clean all mirrors throughout house”,zone:“Whole House”},
-{id:“m52”,name:“Wipe all door frames throughout house (top and sides)”,zone:“Whole House”},
+{id:“m52”,name:“Wipe all door frames (top and sides)”,zone:“Whole House”},
 {id:“m53”,name:“Wipe all outlet covers and switch plates”,zone:“Whole House”},
-{id:“m54”,name:“Clean trash cans - wash inside and out with disinfectant”,zone:“Whole House”},
-{id:“m55”,name:“Vacuum/sweep stairs thoroughly (edges, risers, banisters)”,zone:“Whole House”},
+{id:“m54”,name:“Clean trash cans - wash inside and out”,zone:“Whole House”},
+{id:“m55”,name:“Vacuum stairs thoroughly (edges, risers, banisters)”,zone:“Whole House”},
 {id:“m56”,name:“Dust stair banister, railings and spindles”,zone:“Whole House”},
 {id:“m57”,name:“Check all ceiling corners for cobwebs”,zone:“Whole House”},
 {id:“m58”,name:“Run washing machine cleaning cycle”,zone:“Laundry”},
 {id:“m59”,name:“Clean washer door gasket/seal (check for mold)”,zone:“Laundry”},
 {id:“m60”,name:“Clean washer detergent drawer/tray”,zone:“Laundry”},
-{id:“m61”,name:“Deep clean dryer lint trap housing (vacuum inside slot)”,zone:“Laundry”},
-{id:“m62”,name:“Wipe laundry room shelving and organize supplies”,zone:“Laundry”},
+{id:“m61”,name:“Deep clean dryer lint trap housing (vacuum inside)”,zone:“Laundry”},
+{id:“m62”,name:“Wipe laundry room shelving and organize”,zone:“Laundry”},
 {id:“m63”,name:“Sweep entire garage floor”,zone:“Garage”},
 {id:“m64”,name:“Wipe garage shelving and workbench”,zone:“Garage”},
 {id:“m65”,name:“Check garage for pests, spiders and webs”,zone:“Garage”},
@@ -293,269 +330,325 @@ var DT = {daily:[
 {id:“m71”,name:“Clean exterior of grill”,zone:“Patio/Deck”},
 {id:“m72”,name:“Mop entryway floor”,zone:“Entryway”},
 {id:“m73”,name:“Wipe entryway baseboards”,zone:“Entryway”},
-{id:“m74”,name:“Clean front door inside and out (handle, glass)”,zone:“Entryway”},
-{id:“m75”,name:“Wash/shake out door mats (inside and outside)”,zone:“Entryway”},
+{id:“m74”,name:“Clean front door inside and out”,zone:“Entryway”},
+{id:“m75”,name:“Wash door mats (inside and outside)”,zone:“Entryway”},
 {id:“m76”,name:“Wipe entryway light fixture”,zone:“Entryway”},
-{id:“m77”,name:“Deep clean high chair - disassemble tray, wash straps, scrub frame”,zone:“Baby/Kids”},
+{id:“m77”,name:“Deep clean high chair - disassemble, wash straps, scrub”,zone:“Baby/Kids”},
 {id:“m78”,name:“Wash all stuffed animals”,zone:“Baby/Kids”},
 {id:“m79”,name:“Sanitize all plastic toys (bleach soak and rinse)”,zone:“Baby/Kids”},
 {id:“m80”,name:“Deep clean car seats (vacuum, wipe surfaces and straps)”,zone:“Baby/Kids”},
-{id:“m81”,name:“Clean diaper pail thoroughly (wash inside and out)”,zone:“Baby/Kids”},
+{id:“m81”,name:“Clean diaper pail thoroughly”,zone:“Baby/Kids”},
 {id:“m82”,name:“Wipe baby monitors, sound machines and humidifier”,zone:“Baby/Kids”},
 {id:“m83”,name:“Wash crib rails, slats and frame”,zone:“Baby/Kids”},
 {id:“m84”,name:“Clean stroller frame and wheels”,zone:“Baby/Kids”},
 {id:“m85”,name:“Sweep front porch and steps”,zone:“Exterior”},
-{id:“m86”,name:“Check and clean entryway lights (exterior)”,zone:“Exterior”}
-],quarterly:[
+{id:“m86”,name:“Check and clean exterior entryway lights”,zone:“Exterior”}
+],
+quarterly:[
 {id:“q1”,name:“Deep clean all carpets - spot treat, steam clean”,zone:“Whole House”},
-{id:“q2”,name:“Clean ALL windows inside AND outside, frames, tracks, screens”,zone:“Whole House”},
+{id:“q2”,name:“Clean ALL windows inside and outside”,zone:“Whole House”},
 {id:“q3”,name:“Flip/rotate ALL mattresses”,zone:“Whole House”},
 {id:“q4”,name:“Deep clean and organize garage”,zone:“Garage”},
 {id:“q5”,name:“Deep clean basement”,zone:“Basement”},
-{id:“q6”,name:“Wash walls - remove scuffs, fingerprints, smudges”,zone:“Whole House”},
-{id:“q7”,name:“Clean all light fixtures (remove covers, wash, dry)”,zone:“Whole House”},
+{id:“q6”,name:“Wash walls - scuffs, fingerprints, smudges”,zone:“Whole House”},
+{id:“q7”,name:“Clean all light fixtures (remove covers, wash)”,zone:“Whole House”},
 {id:“q8”,name:“Deep organize entire pantry”,zone:“Kitchen”},
-{id:“q9”,name:“Deep clean fridge and freezer (remove drawers, wash everything)”,zone:“Kitchen”},
+{id:“q9”,name:“Deep clean fridge and freezer”,zone:“Kitchen”},
 {id:“q10”,name:“Clean patio furniture thoroughly”,zone:“Patio/Deck”},
 {id:“q11”,name:“Clean dryer vent and ductwork”,zone:“Laundry”},
-{id:“q12”,name:“Deep clean washing machine (gasket, drum, filter)”,zone:“Laundry”},
+{id:“q12”,name:“Deep clean washing machine”,zone:“Laundry”},
 {id:“q13”,name:“Purge kids outgrown clothes and donate”,zone:“Girls’ Room”},
-{id:“q14”,name:“Rotate and purge toys (store some, donate some)”,zone:“Girls’ Room”},
-{id:“q15”,name:“Deep clean behind fridge (pull out, clean floor and wall)”,zone:“Kitchen”},
-{id:“q16”,name:“Deep clean behind stove (pull out, clean floor and wall)”,zone:“Kitchen”},
+{id:“q14”,name:“Rotate and purge toys”,zone:“Girls’ Room”},
+{id:“q15”,name:“Deep clean behind fridge”,zone:“Kitchen”},
+{id:“q16”,name:“Deep clean behind stove”,zone:“Kitchen”},
 {id:“q17”,name:“Deep clean dishwasher - filter, spray arms, gasket”,zone:“Kitchen”},
-{id:“q18”,name:“Deep clean all shower grout (grout cleaner + brush)”,zone:“Bathroom”},
+{id:“q18”,name:“Deep clean all shower grout”,zone:“Bathroom”},
 {id:“q19”,name:“Clean bathroom exhaust fan motor”,zone:“Bathroom”},
 {id:“q20”,name:“Deep clean inside ALL bathroom drawers and cabinets”,zone:“Bathroom”},
 {id:“q21”,name:“Replace HVAC filters”,zone:“Whole House”},
 {id:“q22”,name:“Clean ALL air vents and registers (remove, soak, scrub)”,zone:“Whole House”},
-{id:“q23”,name:“Deep clean behind ALL major furniture pieces”,zone:“Whole House”},
-{id:“q24”,name:“Vacuum ALL drapes and curtains (or wash)”,zone:“Whole House”},
-{id:“q25”,name:“Clean all closet floors (remove items, vacuum)”,zone:“Whole House”},
-{id:“q26”,name:“Deep organize one closet per quarter”,zone:“Whole House”},
-{id:“q27”,name:“Shampoo/deep clean couch and upholstered furniture”,zone:“Living Room”},
-{id:“q28”,name:“Wash ALL throw blankets and throw pillow covers”,zone:“Living Room”},
+{id:“q23”,name:“Deep clean behind ALL major furniture”,zone:“Whole House”},
+{id:“q24”,name:“Vacuum ALL drapes and curtains”,zone:“Whole House”},
+{id:“q25”,name:“Clean all closet floors”,zone:“Whole House”},
+{id:“q26”,name:“Deep organize one closet”,zone:“Whole House”},
+{id:“q27”,name:“Shampoo couch and upholstered furniture”,zone:“Living Room”},
+{id:“q28”,name:“Wash ALL throw blankets and pillow covers”,zone:“Living Room”},
 {id:“q29”,name:“Clean behind entertainment center/TV stand”,zone:“Living Room”},
-{id:“q30”,name:“Deep clean stroller - fabric, frame, wheels”,zone:“Baby/Kids”},
+{id:“q30”,name:“Deep clean stroller”,zone:“Baby/Kids”},
 {id:“q31”,name:“Remove and wash car seat covers”,zone:“Baby/Kids”},
 {id:“q32”,name:“Deep clean entryway closet”,zone:“Entryway”},
 {id:“q33”,name:“Clean garage door inside surface”,zone:“Garage”},
 {id:“q34”,name:“Wash/replace door mats”,zone:“Entryway”},
-{id:“q35”,name:“Clean grill thoroughly - grates, drip pan, burners”,zone:“Patio/Deck”},
+{id:“q35”,name:“Clean grill - grates, drip pan, burners”,zone:“Patio/Deck”},
 {id:“q36”,name:“Clean outdoor light fixtures”,zone:“Exterior”},
 {id:“q37”,name:“Clean all interior door hinges”,zone:“Whole House”},
 {id:“q38”,name:“Deep clean all kitchen drawer organizers”,zone:“Kitchen”},
 {id:“q39”,name:“Organize and clean master bedroom closet”,zone:“Master Bedroom”}
-],biannual:[
-{id:“b1”,name:“Deep clean ALL closets (organize, purge, vacuum, wipe shelves)”,zone:“Whole House”},
+],
+biannual:[
+{id:“b1”,name:“Deep clean ALL closets (organize, purge, vacuum)”,zone:“Whole House”},
 {id:“b2”,name:“Deep dust all rooms top to bottom”,zone:“Whole House”},
 {id:“b3”,name:“Wash ALL window screens”,zone:“Whole House”},
 {id:“b4”,name:“Clean and organize ALL kitchen cabinets inside”,zone:“Kitchen”},
-{id:“b5”,name:“Deep clean all bedroom carpets (steam clean)”,zone:“Whole House”},
-{id:“b6”,name:“Check recaulk needs in bathroom (tub, shower, sink)”,zone:“Bathroom”},
+{id:“b5”,name:“Deep clean all bedroom carpets”,zone:“Whole House”},
+{id:“b6”,name:“Check recaulk needs in bathroom”,zone:“Bathroom”},
 {id:“b7”,name:“Inspect and replace shower liner if needed”,zone:“Bathroom”},
 {id:“b8”,name:“Clean all ceiling corners and crown molding”,zone:“Whole House”},
-{id:“b9”,name:“Check and clean washer hoses for wear”,zone:“Laundry”},
-{id:“b10”,name:“Deep clean humidifier/dehumidifier (descale, filter)”,zone:“Whole House”}
-],annual:[
+{id:“b9”,name:“Check washer hoses for wear”,zone:“Laundry”},
+{id:“b10”,name:“Deep clean humidifier/dehumidifier”,zone:“Whole House”}
+],
+annual:[
 {id:“a1”,name:“Professional carpet cleaning (all rooms)”,zone:“Whole House”},
-{id:“a2”,name:“Full window wash inside AND outside, all screens”,zone:“Whole House”},
-{id:“a3”,name:“Replace ALL HVAC filters and schedule HVAC service”,zone:“Whole House”},
+{id:“a2”,name:“Full window wash inside and outside, all screens”,zone:“Whole House”},
+{id:“a3”,name:“Replace ALL HVAC filters and schedule service”,zone:“Whole House”},
 {id:“a4”,name:“Full dryer vent cleaning (dryer to exterior wall)”,zone:“Laundry”},
 {id:“a5”,name:“Power wash patio/deck”,zone:“Patio/Deck”},
-{id:“a6”,name:“Power wash driveway, sidewalks and walkways”,zone:“Exterior”},
+{id:“a6”,name:“Power wash driveway and walkways”,zone:“Exterior”},
 {id:“a7”,name:“Deep clean behind and under ALL kitchen appliances”,zone:“Kitchen”},
 {id:“a8”,name:“Professional upholstery cleaning”,zone:“Living Room”},
-{id:“a9”,name:“Check and test ALL smoke/CO detectors (replace batteries)”,zone:“Whole House”},
+{id:“a9”,name:“Check and test ALL smoke/CO detectors”,zone:“Whole House”},
 {id:“a10”,name:“Clean gutters and downspouts”,zone:“Exterior”},
-{id:“a11”,name:“Full garage cleanout - everything out, wash floor, reorganize”,zone:“Garage”},
-{id:“a12”,name:“Deep clean basement storage - move everything, clean, reorganize”,zone:“Basement”},
+{id:“a11”,name:“Full garage cleanout and reorganize”,zone:“Garage”},
+{id:“a12”,name:“Deep clean basement storage and reorganize”,zone:“Basement”},
 {id:“a13”,name:“Wash ALL curtains, drapes and blinds”,zone:“Whole House”},
 {id:“a14”,name:“Clean and reseal hardwood floors if needed”,zone:“Whole House”},
-{id:“a15”,name:“Deep clean mattresses (baking soda, vacuum, flip, air out)”,zone:“Whole House”},
+{id:“a15”,name:“Deep clean mattresses (baking soda, vacuum, flip)”,zone:“Whole House”},
 {id:“a16”,name:“Replace bed pillows if older than 1-2 years”,zone:“Whole House”},
-{id:“a17”,name:“Deep clean all ceiling fans (disassemble, wash blades)”,zone:“Whole House”},
+{id:“a17”,name:“Deep clean all ceiling fans”,zone:“Whole House”},
 {id:“a18”,name:“Clean exterior siding/house walls”,zone:“Exterior”},
 {id:“a19”,name:“Lubricate garage door tracks and hinges”,zone:“Garage”},
 {id:“a20”,name:“Clean garage door exterior”,zone:“Garage”},
 {id:“a21”,name:“Power wash front porch and steps”,zone:“Exterior”},
-{id:“a22”,name:“Deep clean outdoor furniture, treat/seal wood”,zone:“Patio/Deck”},
+{id:“a22”,name:“Deep clean outdoor furniture”,zone:“Patio/Deck”},
 {id:“a23”,name:“Stain or seal deck if wood”,zone:“Patio/Deck”},
-{id:“a24”,name:“Deep clean grill end-of-season (full disassemble)”,zone:“Patio/Deck”},
+{id:“a24”,name:“Deep clean grill end-of-season”,zone:“Patio/Deck”},
 {id:“a25”,name:“Check exterior caulking around windows and doors”,zone:“Exterior”},
 {id:“a26”,name:“Replace toilet seat”,zone:“Bathroom”},
-{id:“a27”,name:“Recaulk bathroom if needed (tub, shower, sink)”,zone:“Bathroom”},
+{id:“a27”,name:“Recaulk bathroom if needed”,zone:“Bathroom”},
 {id:“a28”,name:“Full kitchen deep clean - every cabinet inside and out”,zone:“Kitchen”},
-{id:“a29”,name:“Deep clean all closets - full purge, donate, reorganize”,zone:“Whole House”},
+{id:“a29”,name:“Deep clean all closets - full purge and reorganize”,zone:“Whole House”},
 {id:“a30”,name:“Replace shower curtain/liner”,zone:“Bathroom”},
 {id:“a31”,name:“Clean and organize all storage areas”,zone:“Basement”},
-{id:“a32”,name:“Purge entire house - room by room, donate/trash unused items”,zone:“Whole House”}
-]};
+{id:“a32”,name:“Purge entire house room by room”,zone:“Whole House”}
+]
+};
 
-function sGet(k){try{var v=localStorage.getItem(k);return v?JSON.parse(v):null;}catch(e){return null;}}
-function sSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+/* –– STORAGE –– */
+function sG(k){try{var v=localStorage.getItem(k);if(v){return JSON.parse(v);}return null;}catch(e){return null;}}
+function sS(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 
-var tasks = sGet(‘hcp-t4’) || JSON.parse(JSON.stringify(DT));
-var comp = sGet(‘hcp-c4’) || {};
-var aView = ‘today’;
-var selDay = gTD();
-var zFilt = ‘All’;
-var sSets = false;
-var sAdd = false;
-var eTask = null;
-var nTask = {name:’’,zone:‘Kitchen’,frequency:‘daily’,day:‘Monday’};
+/* –– STATE –– */
+var tasks = sG(“hcp5t”) || JSON.parse(JSON.stringify(DTASKS));
+var comp = sG(“hcp5c”) || {};
+var state = {view:“today”,day:todayName(),zone:“All”,sets:false,addM:false,smsM:false,editT:null};
+var nT = {name:””,zone:“Kitchen”,freq:“daily”,day:“Monday”};
+var smsSel = {};
+var smsPhone = sG(“hcp5ph”) || “”;
 
-function save(){sSet(‘hcp-t4’,tasks);sSet(‘hcp-c4’,comp);}
-function gTD(){var d=new Date().getDay();return DAYS[d===0?6:d-1];}
-function gDS(){return new Date().toISOString().split(‘T’)[0];}
-function gWK(){var d=new Date(),dy=d.getDay(),df=d.getDate()-dy+(dy===0?-6:1);return new Date(new Date(d).setDate(df)).toISOString().split(‘T’)[0];}
-function gMK(){var d=new Date();return d.getFullYear()+’-’+String(d.getMonth()+1).padStart(2,‘0’);}
-function gQK(){var d=new Date();return d.getFullYear()+’-Q’+Math.ceil((d.getMonth()+1)/3);}
-function gHK(){var d=new Date();return d.getFullYear()+’-H’+(d.getMonth()<6?1:2);}
-function gYK(){return ‘’+new Date().getFullYear();}
+function save(){sS(“hcp5t”,tasks);sS(“hcp5c”,comp);}
 
-function isC(id,pk){return !!comp[id+’:’+pk];}
-
-function tgl(id,pk){
-var k=id+’:’+pk;
-if(comp[k]) delete comp[k]; else comp[k]=Date.now();
-save();render();
+/* –– DATE HELPERS –– */
+function todayName(){var d=new Date().getDay();return DAYS[d===0?6:d-1];}
+function dateKey(){return new Date().toISOString().split(“T”)[0];}
+function weekKey(){
+var d=new Date();
+var day=d.getDay();
+var diff=d.getDate()-day+(day===0?-6:1);
+var mon=new Date(d.getFullYear(),d.getMonth(),diff);
+return mon.toISOString().split(“T”)[0];
 }
+function monthKey(){var d=new Date();return d.getFullYear()+”-”+(d.getMonth()<9?“0”:””)+(d.getMonth()+1);}
+function quarterKey(){var d=new Date();return d.getFullYear()+”-Q”+Math.ceil((d.getMonth()+1)/3);}
+function halfKey(){var d=new Date();return d.getFullYear()+”-H”+(d.getMonth()<6?1:2);}
+function yearKey(){return “”+new Date().getFullYear();}
 
-function gVT(){
-var r=[],ds=gDS(),wk=gWK(),mk=gMK(),qk=gQK(),hk=gHK(),yk=gYK(),td=gTD();
-if(aView===‘today’){
-for(var i=0;i<tasks.daily.length;i++) r.push({id:tasks.daily[i].id,name:tasks.daily[i].name,zone:tasks.daily[i].zone,custom:tasks.daily[i].custom,_f:‘daily’,_p:ds});
-var wt=tasks.weekly[td]||[];
-for(var j=0;j<wt.length;j++) r.push({id:wt[j].id,name:wt[j].name,zone:wt[j].zone,custom:wt[j].custom,_f:‘weekly’,_p:wk});
-} else if(aView===‘daily’){
-for(var i=0;i<tasks.daily.length;i++) r.push({id:tasks.daily[i].id,name:tasks.daily[i].name,zone:tasks.daily[i].zone,custom:tasks.daily[i].custom,_f:‘daily’,_p:ds});
-} else if(aView===‘weekly’){
-var wt=tasks.weekly[selDay]||[];
-for(var j=0;j<wt.length;j++) r.push({id:wt[j].id,name:wt[j].name,zone:wt[j].zone,custom:wt[j].custom,_f:‘weekly’,_p:wk,_d:selDay});
-} else {
+function isDone(id,pk){return comp[id+”:”+pk]===1;}
+function toggle(id,pk){var k=id+”:”+pk;if(comp[k]){delete comp[k];}else{comp[k]=1;}save();render();}
+
+/* –– GET TASKS –– */
+function viewTasks(){
+var r=[];
+var dk=dateKey(),wk=weekKey(),mk=monthKey(),qk=quarterKey(),hk=halfKey(),yk=yearKey();
+var td=todayName();
+var v=state.view;
+var i;
+if(v===“today”){
+for(i=0;i<tasks.daily.length;i++){var t=tasks.daily[i];r.push({id:t.id,name:t.name,zone:t.zone,cust:t.cust,_f:“daily”,_p:dk});}
+var wl=tasks.weekly[td]||[];
+for(i=0;i<wl.length;i++){var t=wl[i];r.push({id:t.id,name:t.name,zone:t.zone,cust:t.cust,_f:“weekly”,_p:wk});}
+}else if(v===“daily”){
+for(i=0;i<tasks.daily.length;i++){var t=tasks.daily[i];r.push({id:t.id,name:t.name,zone:t.zone,cust:t.cust,_f:“daily”,_p:dk});}
+}else if(v===“weekly”){
+var wl=tasks.weekly[state.day]||[];
+for(i=0;i<wl.length;i++){var t=wl[i];r.push({id:t.id,name:t.name,zone:t.zone,cust:t.cust,_f:“weekly”,_p:wk,_d:state.day});}
+}else{
 var pks={monthly:mk,quarterly:qk,biannual:hk,annual:yk};
-var arr=tasks[aView]||[];
-for(var i=0;i<arr.length;i++) r.push({id:arr[i].id,name:arr[i].name,zone:arr[i].zone,custom:arr[i].custom,_f:aView,_p:pks[aView]});
+var arr=tasks[v]||[];
+for(i=0;i<arr.length;i++){var t=arr[i];r.push({id:t.id,name:t.name,zone:t.zone,cust:t.cust,_f:v,_p:pks[v]});}
 }
-if(zFilt!==‘All’) r=r.filter(function(t){return t.zone===zFilt;});
+if(state.zone!==“All”){r=r.filter(function(x){return x.zone===state.zone;});}
 return r;
 }
 
-function gPr(f){
-var list=[],pk=’’;
-if(f===‘daily’){list=tasks.daily;pk=gDS();}
-else if(f===‘weekly’){for(var i=0;i<DAYS.length;i++){var w=tasks.weekly[DAYS[i]]||[];for(var j=0;j<w.length;j++)list.push(w[j]);}pk=gWK();}
-else if(f===‘monthly’){list=tasks.monthly;pk=gMK();}
-else if(f===‘quarterly’){list=tasks.quarterly;pk=gQK();}
-else if(f===‘biannual’){list=tasks.biannual;pk=gHK();}
-else{list=tasks.annual;pk=gYK();}
-var t=list.length,d=0;
-for(var i=0;i<list.length;i++) if(isC(list[i].id,pk)) d++;
-return {total:t,done:d,pct:t?Math.round(d/t*100):0};
+function getProgress(f){
+var list=[],pk=””,i;
+if(f===“daily”){list=tasks.daily;pk=dateKey();}
+else if(f===“weekly”){for(i=0;i<DAYS.length;i++){var w=tasks.weekly[DAYS[i]]||[];for(var j=0;j<w.length;j++){list.push(w[j]);}}pk=weekKey();}
+else if(f===“monthly”){list=tasks.monthly;pk=monthKey();}
+else if(f===“quarterly”){list=tasks.quarterly;pk=quarterKey();}
+else if(f===“biannual”){list=tasks.biannual;pk=halfKey();}
+else{list=tasks.annual;pk=yearKey();}
+var total=list.length,done=0;
+for(i=0;i<list.length;i++){if(isDone(list[i].id,pk)){done++;}}
+return {total:total,done:done,pct:total?Math.round(done/total*100):0};
 }
 
-function addT(){
-if(!nTask.name.trim())return;
-var id=‘c-’+Date.now();
-var t={id:id,name:nTask.name.trim(),zone:nTask.zone,custom:true};
-if(nTask.frequency===‘daily’) tasks.daily.push(t);
-else if(nTask.frequency===‘weekly’){if(!tasks.weekly[nTask.day])tasks.weekly[nTask.day]=[];tasks.weekly[nTask.day].push(t);}
-else tasks[nTask.frequency].push(t);
-save();nTask={name:’’,zone:‘Kitchen’,frequency:‘daily’,day:‘Monday’};sAdd=false;render();
+/* –– ACTIONS –– */
+function addTask(){
+if(!nT.name.trim()){return;}
+var id=“c”+Date.now();
+var t={id:id,name:nT.name.trim(),zone:nT.zone,cust:true};
+if(nT.freq===“daily”){tasks.daily.push(t);}
+else if(nT.freq===“weekly”){if(!tasks.weekly[nT.day]){tasks.weekly[nT.day]=[];}tasks.weekly[nT.day].push(t);}
+else{tasks[nT.freq].push(t);}
+save();nT={name:””,zone:“Kitchen”,freq:“daily”,day:“Monday”};state.addM=false;render();
 }
-
-function delT(id,f,day){
-if(f===‘daily’) tasks.daily=tasks.daily.filter(function(t){return t.id!==id;});
-else if(f===‘weekly’&&day) tasks.weekly[day]=(tasks.weekly[day]||[]).filter(function(t){return t.id!==id;});
-else tasks[f]=tasks[f].filter(function(t){return t.id!==id;});
-save();eTask=null;render();
+function delTask(id,f,day){
+if(f===“daily”){tasks.daily=tasks.daily.filter(function(t){return t.id!==id;});}
+else if(f===“weekly”&&day){tasks.weekly[day]=(tasks.weekly[day]||[]).filter(function(t){return t.id!==id;});}
+else{tasks[f]=tasks[f].filter(function(t){return t.id!==id;});}
+save();state.editT=null;render();
 }
-
-function resP(){
+function resetPeriod(){
 var pk;
-if(aView===‘daily’)pk=gDS();else if(aView===‘weekly’)pk=gWK();else if(aView===‘monthly’)pk=gMK();else if(aView===‘quarterly’)pk=gQK();else if(aView===‘biannual’)pk=gHK();else pk=gYK();
+var v=state.view;
+if(v===“daily”){pk=dateKey();}else if(v===“weekly”){pk=weekKey();}else if(v===“monthly”){pk=monthKey();}else if(v===“quarterly”){pk=quarterKey();}else if(v===“biannual”){pk=halfKey();}else{pk=yearKey();}
 var keys=Object.keys(comp);
-for(var i=0;i<keys.length;i++){if(keys[i].indexOf(’:’+pk)===keys[i].length-pk.length-1) delete comp[keys[i]];}
+var suffix=”:”+pk;
+for(var i=0;i<keys.length;i++){
+if(keys[i].length>=suffix.length&&keys[i].substring(keys[i].length-suffix.length)===suffix){delete comp[keys[i]];}
+}
 save();render();
 }
 
-function esc(s){var d=document.createElement(‘div’);d.textContent=s;return d.innerHTML;}
+/* –– SMS –– */
+function openSms(){
+var vt=viewTasks();
+smsSel={};
+for(var i=0;i<vt.length;i++){
+if(!isDone(vt[i].id,vt[i]._p)){smsSel[vt[i].id]=true;}
+}
+state.smsM=true;
+render();
+}
+function toggleSms(id){if(smsSel[id]){delete smsSel[id];}else{smsSel[id]=true;}render();}
+function toggleAllSms(){
+var vt=viewTasks();
+var allOn=true;
+for(var i=0;i<vt.length;i++){if(!smsSel[vt[i].id]){allOn=false;break;}}
+if(allOn){smsSel={};}else{for(var i=0;i<vt.length;i++){smsSel[vt[i].id]=true;}}
+render();
+}
+function sendSms(){
+var vt=viewTasks();
+var lines=[];
+for(var i=0;i<vt.length;i++){
+if(smsSel[vt[i].id]){lines.push(”- “+vt[i].name+” [”+vt[i].zone+”]”);}
+}
+if(lines.length===0){return;}
+var phone=(window.smsPhone||””).trim();
+sS(“hcp5ph”,phone);
+var body=“Cleaning Tasks:\n\n”+lines.join(”\n”);
+var url=“sms:”+encodeURIComponent(phone)+”&body=”+encodeURIComponent(body);
+window.location.href=url;
+}
 
+/* –– ESCAPE –– */
+function esc(s){
+return s.replace(/&/g,”&”).replace(/</g,”<”).replace(/>/g,”>”).replace(/”/g,”"”).replace(/’/g,”'”);
+}
+
+/* –– RENDER –– */
 function render(){
 var today=new Date();
-var todayDay=gTD();
-var vt=gVT();
-var vD=0;for(var i=0;i<vt.length;i++)if(isC(vt[i].id,vt[i]._p))vD++;
-var vT=vt.length;
-var vP=vT?Math.round(vD/vT*100):0;
-var h=’’;
+var td=todayName();
+var vt=viewTasks();
+var vDone=0;
+for(var i=0;i<vt.length;i++){if(isDone(vt[i].id,vt[i]._p)){vDone++;}}
+var vTotal=vt.length;
+var vPct=vTotal?Math.round(vDone/vTotal*100):0;
+var h=””;
 
 // Header
-h+=’<div class="hd"><div class="hd-top"><div><h1>Home Care Planner</h1>’;
-h+=’<div class="dt">’+today.toLocaleDateString(‘en-US’,{weekday:‘long’,month:‘long’,day:‘numeric’,year:‘numeric’})+’</div>’;
-h+=’</div><div class="hd-act">’;
-h+=’<button class="bs" onclick="sSets=!sSets;render()">⚙</button>’;
-h+=’<button class="ba" onclick="sAdd=true;render()">+ Add Task</button>’;
+h+=’<div class="hd"><div class="hd-top"><div>’;
+h+=’<h1>Home Care Planner</h1>’;
+h+=’<div class="dt">’+today.toLocaleDateString(“en-US”,{weekday:“long”,month:“long”,day:“numeric”,year:“numeric”})+’</div>’;
+h+=’</div><div class="hd-btns">’;
+h+=’<button class="btn-gear" onclick="state.sets=!state.sets;render()">⚙</button>’;
+h+=’<button class="btn-text" onclick="openSms()">✉ Text</button>’;
+h+=’<button class="btn-add" onclick="state.addM=true;render()">+ Add</button>’;
 h+=’</div></div>’;
 
 // Progress
-h+=’<div class="pr">’;
-var fks=[‘daily’,‘weekly’,‘monthly’,‘quarterly’,‘biannual’,‘annual’];
+h+=’<div class="prog">’;
+var fks=[“daily”,“weekly”,“monthly”,“quarterly”,“biannual”,“annual”];
 for(var i=0;i<fks.length;i++){
-var f=fks[i],p=gPr(f),c=FC[f];
-h+=’<div class="pc" style="background:'+c.tag+'"><div class="pv" style="color:'+c.accent+'">’+p.pct+’%</div><div class="pl" style="color:'+c.accent+'">’+FL[f]+’</div></div>’;
+var f=fks[i],p=getProgress(f),c=FCOL[f];
+h+=’<div class="prog-c" style="background:'+c.t+'"><div class="pv" style="color:'+c.a+'">’+p.pct+’%</div><div class="pl" style="color:'+c.a+'">’+FLBL[f]+’</div></div>’;
 }
 h+=’</div>’;
 
 // Tabs
-h+=’<div class="ts">’;
-var tbs=[[‘today’,‘Today’],[‘daily’,‘Daily’],[‘weekly’,‘Weekly’],[‘monthly’,‘Monthly’],[‘quarterly’,‘Quarterly’],[‘biannual’,‘Biannual’],[‘annual’,‘Annual’]];
+h+=’<div class="tabs">’;
+var tbs=[[“today”,“Today”],[“daily”,“Daily”],[“weekly”,“Weekly”],[“monthly”,“Monthly”],[“quarterly”,“Quarterly”],[“biannual”,“Biannual”],[“annual”,“Annual”]];
 for(var i=0;i<tbs.length;i++){
-h+=’<button class="tb'+(aView===tbs[i][0]?' ac':'')+'" onclick="aView=\''+tbs[i][0]+'\';zFilt=\'All\';render()">’+tbs[i][1]+’</button>’;
+h+=’<button class=”’+(state.view===tbs[i][0]?“on”:””)+’” onclick=“state.view='’+tbs[i][0]+’';state.zone='All';render()”>’+tbs[i][1]+’</button>’;
 }
 h+=’</div></div>’;
 
 // Settings
-if(sSets){
-h+=’<div class="sp"><label>Zone:</label><select onchange="zFilt=this.value;render()">’;
-for(var i=0;i<ZONES.length;i++) h+=’<option’+(zFilt===ZONES[i]?’ selected’:’’)+’>’+ZONES[i]+’</option>’;
+if(state.sets){
+h+=’<div class="filt"><label>Zone:</label><select onchange="state.zone=this.value;render()">’;
+for(var i=0;i<ZONES.length;i++){h+=’<option’+(state.zone===ZONES[i]?’ selected’:’’)+’>’+ZONES[i]+’</option>’;}
 h+=’</select>’;
-if(aView!==‘today’) h+=’<button class="br" onclick="resP()">Reset Period</button>’;
+if(state.view!==“today”){h+=’<button class="rst" onclick="resetPeriod()">Reset Period</button>’;}
 h+=’</div>’;
 }
 
 // Day selector
-if(aView===‘weekly’){
-h+=’<div class="ds">’;
+if(state.view===“weekly”){
+h+=’<div class="days">’;
 for(var i=0;i<7;i++){
-var cls=‘db’+(selDay===DAYS[i]?’ ac’:’’)+(DAYS[i]===todayDay&&selDay!==DAYS[i]?’ td’:’’);
-h+=’<button class="'+cls+'" onclick="selDay=\''+DAYS[i]+'\';render()">’+DSHORT[i]+’</button>’;
+var cls=””;
+if(state.day===DAYS[i]){cls=“on”;}
+else if(DAYS[i]===td){cls=“now”;}
+h+=’<button class="'+cls+'" onclick="state.day=\''+DAYS[i]+'\';render()">’+DS[i]+’</button>’;
 }
 h+=’</div>’;
 }
 
 // Main
-h+=’<div class="mn">’;
-var vTitle=aView===‘today’?todayDay+”‘s Tasks”:aView===‘weekly’?selDay:FL[aView];
-h+=’<div class="vh"><div><h2>’+vTitle+’</h2><div class="vs">’+vD+’ of ‘+vT+’ complete</div></div>’;
-h+=’<div class="rg" style="background:conic-gradient(#5B7A58 '+(vP*3.6)+'deg, #E8E6E1 0deg)"><div class="ri">’+vP+’%</div></div></div>’;
-h+=’<div class="pb"><div class="pf" style="width:'+vP+'%"></div></div>’;
+h+=’<div class="main">’;
+var vTitle=state.view===“today”?td+”‘s Tasks”:state.view===“weekly”?state.day:(FLBL[state.view]||state.view);
+h+=’<div class="vhdr"><div><h2>’+vTitle+’</h2><div class="sub">’+vDone+’ of ‘+vTotal+’ complete</div></div>’;
+h+=’<div class="ring" style="background:conic-gradient(#5B7A58 '+Math.round(vPct*3.6)+'deg, #E8E6E1 0deg)"><div class="ring-in">’+vPct+’%</div></div></div>’;
+h+=’<div class="pbar"><div class="pfill" style="width:'+vPct+'%"></div></div>’;
 
-// Tasks
 if(vt.length===0){
-h+=’<div style="text-align:center;padding:48px 20px;color:#B0ACA6"><div style="font-size:32px;margin-bottom:8px">✨</div><div style="font-size:14px">No tasks here!</div></div>’;
-} else {
-h+=’<div class="tl">’;
+h+=’<div style="text-align:center;padding:40px 16px;color:#B0ACA6;font-size:13px">No tasks here!</div>’;
+}else{
+h+=’<div class="tlist">’;
 for(var i=0;i<vt.length;i++){
-var tk=vt[i],dn=isC(tk.id,tk._p),c=FC[tk._f];
-h+=’<div class="tc'+(dn?' dn':'')+'" onclick="tgl(\''+tk.id+'\',\''+tk._p+'\')">’;
-h+=’<div class="cb'+(dn?' ck':'')+'" style="border-color:'+(dn?'#5B7A58':c.border)+'"></div>’;
-h+=’<div class="ti"><div class="tn'+(dn?' st':'')+'">’+esc(tk.name)+’</div>’;
-h+=’<div class="tt"><span class="tg" style="background:'+c.tag+';color:'+c.accent+'">’+FL[tk._f]+’</span>’;
-h+=’<span class="tg tz">’+esc(tk.zone)+’</span></div></div>’;
-if(tk.custom){
-h+=’<button class=“td2” onclick=“event.stopPropagation();eTask={id:'’+tk.id+’',name:'’+esc(tk.name).replace(/’/g,”\’”)+’',zone:'’+tk.zone+’',_f:'’+tk._f+’',_d:'’+(tk._d||’’)+’'};render()”>…</button>’;
+var tk=vt[i];
+var dn=isDone(tk.id,tk._p);
+var c=FCOL[tk._f];
+h+=’<div class=“tcard’+(dn?” done”:””)+’” onclick=“toggle('’+tk.id+’','’+tk._p+’')”>’;
+h+=’<div class=“chk’+(dn?” on”:””)+’” style=“border-color:’+(dn?”#5B7A58”:c.b)+’”></div>’;
+h+=’<div class="tinfo"><div class=“tname’+(dn?” struck”:””)+’”>’+esc(tk.name)+’</div>’;
+h+=’<div class="ttags"><span class="tag" style="background:'+c.t+';color:'+c.a+'">’+FLBL[tk._f]+’</span>’;
+h+=’<span class="tag tag-z">’+esc(tk.zone)+’</span></div></div>’;
+if(tk.cust){
+h+=’<button class=“tbtn” onclick=“event.stopPropagation();state.editT={id:'’+tk.id+’',name:'’+esc(tk.name).replace(/’/g,”\’”)+’',zone:'’+tk.zone+’',_f:'’+tk._f+’',_d:'’+(tk._d||’’)+’'};render()”>…</button>’;
 }
 h+=’</div>’;
 }
@@ -563,30 +656,30 @@ h+=’</div>’;
 }
 
 // Today extras
-if(aView===‘today’){
-var exs=[‘monthly’,‘quarterly’,‘biannual’,‘annual’];
-var pks={monthly:gMK(),quarterly:gQK(),biannual:gHK(),annual:gYK()};
+if(state.view===“today”){
+var exs=[“monthly”,“quarterly”,“biannual”,“annual”];
+var pks={monthly:monthKey(),quarterly:quarterKey(),biannual:halfKey(),annual:yearKey()};
 for(var ei=0;ei<exs.length;ei++){
-var ef=exs[ei],ep=gPr(ef),ec=FC[ef],epk=pks[ef];
+var ef=exs[ei],ep=getProgress(ef),ec=FCOL[ef],epk=pks[ef];
 var arr=tasks[ef]||[];
 var pnd=[];
 for(var j=0;j<arr.length;j++){
-if(zFilt===‘All’||arr[j].zone===zFilt){
-if(!isC(arr[j].id,epk)) pnd.push(arr[j]);
+if(state.zone===“All”||arr[j].zone===state.zone){
+if(!isDone(arr[j].id,epk)){pnd.push(arr[j]);}
 }
 }
-if(pnd.length===0) continue;
-h+=’<div class="sh"><h3 style="color:'+ec.accent+'">’+FL[ef]+’ - ‘+ep.done+’/’+ep.total+’</h3>’;
-h+=’<span style="font-size:11px;color:'+ec.accent+';font-weight:500">’+ep.pct+’%</span></div>’;
-h+=’<div class="st2">’;
-var sw=pnd.slice(0,3);
-for(var si=0;si<sw.length;si++){
-h+=’<div class="mt" style="background:'+ec.bg+';border:1px solid '+ec.border+'30" onclick="tgl(\''+sw[si].id+'\',\''+epk+'\')">’;
-h+=’<div class="mc" style="border-color:'+ec.border+'"></div>’;
-h+=’<span>’+esc(sw[si].name)+’</span></div>’;
+if(pnd.length===0){continue;}
+h+=’<div class="sec-hd"><h3 style="color:'+ec.a+'">’+FLBL[ef]+’ - ‘+ep.done+’/’+ep.total+’</h3>’;
+h+=’<span style="font-size:10px;color:'+ec.a+';font-weight:600">’+ep.pct+’%</span></div>’;
+h+=’<div class="sec-list">’;
+var show=pnd.length>3?3:pnd.length;
+for(var si=0;si<show;si++){
+h+=’<div class="mini" style="background:'+ec.t+';border:1px solid '+ec.b+'40" onclick="toggle(\''+pnd[si].id+'\',\''+epk+'\')">’;
+h+=’<div class="mini-chk" style="border-color:'+ec.b+'"></div>’;
+h+=’<span>’+esc(pnd[si].name)+’</span></div>’;
 }
 if(pnd.length>3){
-h+=’<button class="vm" style="color:'+ec.accent+'" onclick="aView=\''+ef+'\';render()">+’+(pnd.length-3)+’ more - View all</button>’;
+h+=’<button class="vmore" style="color:'+ec.a+'" onclick="state.view=\''+ef+'\';render()">+’+(pnd.length-3)+’ more</button>’;
 }
 h+=’</div>’;
 }
@@ -594,45 +687,81 @@ h+=’</div>’;
 h+=’</div>’;
 
 // Add modal
-if(sAdd){
-h+=’<div class="mo" onclick="sAdd=false;render()"><div class="md" onclick="event.stopPropagation()">’;
+if(state.addM){
+h+=’<div class="overlay" onclick="state.addM=false;render()"><div class="modal" onclick="event.stopPropagation()">’;
 h+=’<h3>Add New Task</h3>’;
-h+=’<div class="fd"><span class="fl">Task Name</span><input id="nti" placeholder="e.g., Wipe down pantry shelves" value="'+esc(nTask.name)+'" oninput="nTask.name=this.value"></div>’;
-h+=’<div class="fr"><div class="fd"><span class="fl">Frequency</span><select onchange="nTask.frequency=this.value;render()">’;
-var fk2=[‘daily’,‘weekly’,‘monthly’,‘quarterly’,‘biannual’,‘annual’];
-for(var i=0;i<fk2.length;i++) h+=’<option value=”’+fk2[i]+’”’+(nTask.frequency===fk2[i]?’ selected’:’’)+’>’+FL[fk2[i]]+’</option>’;
-h+=’</select></div><div class="fd"><span class="fl">Zone</span><select onchange="nTask.zone=this.value">’;
-for(var i=0;i<ZONES.length;i++){if(ZONES[i]===‘All’)continue;h+=’<option’+(nTask.zone===ZONES[i]?’ selected’:’’)+’>’+ZONES[i]+’</option>’;}
+h+=’<div class="fld"><span class="fld-l">Task Name</span><input id="ntinp" placeholder="e.g., Wipe down pantry shelves" value="'+esc(nT.name)+'" oninput="nT.name=this.value"></div>’;
+h+=’<div class="fld-r"><div class="fld"><span class="fld-l">Frequency</span><select onchange="nT.freq=this.value;render()">’;
+for(var i=0;i<fks.length;i++){h+=’<option value=”’+fks[i]+’”’+(nT.freq===fks[i]?’ selected’:’’)+’>’+FLBL[fks[i]]+’</option>’;}
+h+=’</select></div><div class="fld"><span class="fld-l">Zone</span><select onchange="nT.zone=this.value">’;
+for(var i=0;i<ZONES.length;i++){if(ZONES[i]===“All”){continue;}h+=’<option’+(nT.zone===ZONES[i]?’ selected’:’’)+’>’+ZONES[i]+’</option>’;}
 h+=’</select></div></div>’;
-if(nTask.frequency===‘weekly’){
-h+=’<div class="fd"><span class="fl">Day</span><div class="dp">’;
-for(var i=0;i<7;i++) h+=’<button class="'+(nTask.day===DAYS[i]?'sl':'')+'" onclick="nTask.day=\''+DAYS[i]+'\';render()">’+DSHORT[i]+’</button>’;
+if(nT.freq===“weekly”){
+h+=’<div class="fld"><span class="fld-l">Day</span><div class="dpk">’;
+for(var i=0;i<7;i++){h+=’<button class=”’+(nT.day===DAYS[i]?“on”:””)+’” onclick=“nT.day='’+DAYS[i]+’';render()”>’+DS[i]+’</button>’;}
 h+=’</div></div>’;
 }
-h+=’<div class="mb"><button class="bc" onclick="sAdd=false;render()">Cancel</button><button class="bf" onclick="addT()">Add Task</button></div>’;
+h+=’<div class="mbtns"><button class="mbtn-c" onclick="state.addM=false;render()">Cancel</button><button class="mbtn-ok" onclick="addTask()">Add Task</button></div>’;
 h+=’</div></div>’;
 }
 
 // Edit modal
-if(eTask){
-h+=’<div class="mo" onclick="eTask=null;render()"><div class="md" onclick="event.stopPropagation()" style="max-width:340px;text-align:center">’;
-h+=’<h3 style="font-size:16px;font-family:DM Sans,sans-serif;font-weight:600">’+esc(eTask.name)+’</h3>’;
-h+=’<p style="font-size:13px;color:#8B8680;margin-bottom:20px">’+esc(eTask.zone)+’</p>’;
-h+=’<button class="bd" onclick="delT(\''+eTask.id+'\',\''+eTask._f+'\',\''+eTask._d+'\')">Delete Task</button>’;
-h+=’<button class="bc" style="width:100%;padding:12px;border-radius:10px" onclick="eTask=null;render()">Cancel</button>’;
+if(state.editT){
+var et=state.editT;
+h+=’<div class="overlay" onclick="state.editT=null;render()"><div class="modal" onclick="event.stopPropagation()" style="max-width:320px;text-align:center">’;
+h+=’<h3 style="font-size:15px">’+esc(et.name)+’</h3>’;
+h+=’<p style="font-size:12px;color:#8B8680;margin-bottom:16px">’+esc(et.zone)+’</p>’;
+h+=’<button class="mbtn-del" onclick="delTask(\''+et.id+'\',\''+et._f+'\',\''+et._d+'\')">Delete Task</button>’;
+h+=’<button class="mbtn-c" style="width:100%;padding:11px;border-radius:9px" onclick="state.editT=null;render()">Cancel</button>’;
 h+=’</div></div>’;
 }
 
-document.getElementById(‘app’).innerHTML=h;
-if(sAdd){var inp=document.getElementById(‘nti’);if(inp)inp.focus();}
+// SMS modal
+if(state.smsM){
+h+=’<div class="overlay" onclick="state.smsM=false;render()"><div class="modal sms-modal" onclick="event.stopPropagation()">’;
+h+=’<h3>Text Tasks</h3>’;
+h+=’<div class="sms-phone"><span class="fld-l">Phone Number (optional)</span><input type=“tel” placeholder=“e.g., 509-555-1234” value=”’+esc(window.smsPhone||””)+’” oninput=“window.smsPhone=this.value”></div>’;
+h+=’<button class="sms-sel-all" onclick="toggleAllSms()">Select All / None</button>’;
+h+=’<div class="task-pick">’;
+for(var i=0;i<vt.length;i++){
+var tk=vt[i];
+var sel=smsSel[tk.id]?true:false;
+h+=’<div class="sms-row" onclick="toggleSms(\''+tk.id+'\')">’;
+h+=’<div class=“sms-chk’+(sel?” on”:””)+’”></div>’;
+h+=’<div class="sms-name">’+esc(tk.name)+’</div>’;
+h+=’<div class="sms-zone">’+esc(tk.zone)+’</div>’;
+h+=’</div>’;
+}
+h+=’</div>’;
+var selCount=Object.keys(smsSel).length;
+h+=’<button class=“sms-send”’+(selCount===0?” disabled”:””)+’ onclick=“sendSms()”>Open Messages (’+selCount+’ tasks)</button>’;
+h+=’<div class="mbtns"><button class="mbtn-c" style="width:100%" onclick="state.smsM=false;render()">Cancel</button></div>’;
+h+=’</div></div>’;
 }
 
-try{
-if(document.readyState===‘loading’){document.addEventListener(‘DOMContentLoaded’,render);}
-else{render();}
-}catch(e){
-document.getElementById(‘app’).innerHTML=’<div style="padding:40px;color:red;font-size:16px">Error: ‘+e.message+’</div>’;
+document.getElementById(“app”).innerHTML=h;
+if(state.addM){var inp=document.getElementById(“ntinp”);if(inp){inp.focus();}}
 }
+
+/* –– EXPOSE GLOBALS –– */
+window.state=state;
+window.nT=nT;
+window.smsSel=smsSel;
+window.smsPhone=smsPhone;
+window.render=render;
+window.toggle=toggle;
+window.addTask=addTask;
+window.delTask=delTask;
+window.resetPeriod=resetPeriod;
+window.openSms=openSms;
+window.toggleSms=toggleSms;
+window.toggleAllSms=toggleAllSms;
+window.sendSms=sendSms;
+
+/* –– INIT –– */
+render();
+
+})();
 </script>
 
 </body>
