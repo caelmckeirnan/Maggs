@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Care Planner</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'DM Sans', 'Segoe UI', sans-serif; background: #FAFAF7; color: #2D2D2D; min-height: 100vh; }
+  button { font-family: inherit; }
+  input, select { font-family: inherit; }
+
+  .header { background: #fff; border-bottom: 1px solid #E8E6E1; padding: 20px 20px 14px; position: sticky; top: 0; z-index: 50; }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+  .header h1 { font-family: 'DM Serif Display', Georgia, serif; font-size: 24px; font-weight: 400; letter-spacing: -0.5px; color: #2D2D2D; }
+  .header .date { font-size: 13px; color: #8B8680; margin-top: 3px; }
+  .header-actions { display: flex; gap: 8px; }
+
+  .btn-settings { background: none; border: 1px solid #E0DDD8; border-radius: 8px; padding: 8px 12px; cursor: pointer; font-size: 14px; color: #6B6560; }
+  .btn-add { background: #5B7A58; border: none; border-radius: 8px; padding: 8px 16px; cursor: pointer; font-size: 13px; color: #fff; font-weight: 600; }
+
+  .progress-row { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+  .progress-chip { flex: 1 1 0; min-width: 56px; border-radius: 8px; padding: 8px 6px; text-align: center; }
+  .progress-chip .pct { font-size: 16px; font-weight: 700; }
+  .progress-chip .lbl { font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.75; margin-top: 1px; }
+
+  .tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+  .tab { padding: 6px 14px; border-radius: 20px; border: 1px solid #E0DDD8; background: transparent; color: #6B6560; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.15s; }
+  .tab.active { border-color: #5B7A58; background: #5B7A58; color: #fff; }
+
+  .settings-panel { background: #fff; border-bottom: 1px solid #E8E6E1; padding: 14px 20px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .settings-panel label { font-size: 12px; color: #8B8680; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+  .settings-panel select { padding: 6px 12px; border-radius: 8px; border: 1px solid #E0DDD8; font-size: 12px; background: #FAFAF7; cursor: pointer; }
+  .btn-reset { padding: 6px 14px; border-radius: 8px; border: 1px solid #E8C4C4; background: #FFF5F5; color: #8B4D4D; font-size: 12px; cursor: pointer; font-weight: 500; }
+
+  .day-selector { background: #fff; border-bottom: 1px solid #E8E6E1; padding: 12px 20px; display: flex; gap: 4px; }
+  .day-btn { flex: 1; padding: 8px 4px; border-radius: 8px; border: 1px solid #E8E6E1; background: transparent; color: #6B6560; font-size: 11px; font-weight: 500; cursor: pointer; text-align: center; }
+  .day-btn.active { border: 2px solid #4A6D8C; background: #4A6D8C; color: #fff; font-weight: 700; }
+  .day-btn.today:not(.active) { background: #EFF3F8; color: #4A6D8C; }
+
+  .main { padding: 16px 20px 120px; }
+  .view-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .view-header h2 { font-size: 18px; font-weight: 600; }
+  .view-header .sub { font-size: 12px; color: #8B8680; margin-top: 2px; }
+
+  .ring { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; }
+  .ring-inner { width: 38px; height: 38px; border-radius: 50%; background: #FAFAF7; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #5B7A58; }
+
+  .progress-bar { height: 4px; background: #E8E6E1; border-radius: 4px; margin-bottom: 18px; }
+  .progress-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #5B7A58, #8BA888); transition: width 0.4s ease; }
+
+  .empty { text-align: center; padding: 48px 20px; color: #B0ACA6; }
+  .empty .icon { font-size: 32px; margin-bottom: 8px; }
+  .empty .msg { font-size: 14px; }
+
+  .task-list { display: flex; flex-direction: column; gap: 6px; }
+  .task-card { background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: all 0.2s; user-select: none; }
+  .task-card.done { background: #F5F5F2; opacity: 0.55; }
+  .task-card:active { transform: scale(0.985); }
+
+  .checkbox { width: 22px; height: 22px; border-radius: 6px; border: 2px solid #ccc; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .checkbox.checked { background: #5B7A58; border-color: #5B7A58; }
+  .checkbox.checked::after { content: '✓'; color: #fff; font-size: 12px; }
+
+  .task-info { flex: 1; min-width: 0; }
+  .task-name { font-size: 14px; font-weight: 500; }
+  .task-name.struck { text-decoration: line-through; color: #8B8680; }
+  .task-tags { display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap; }
+  .tag { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.4px; }
+  .tag-zone { background: #F0EFEC; color: #6B6560; font-weight: 400; text-transform: none; letter-spacing: 0; }
+
+  .task-delete { background: none; border: none; cursor: pointer; font-size: 14px; color: #B0ACA6; padding: 4px 6px; }
+
+  .section-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 0 2px; margin-top: 24px; }
+  .section-title h3 { font-size: 14px; font-weight: 600; margin: 0; }
+  .section-tasks { display: flex; flex-direction: column; gap: 4px; }
+  .mini-task { border-radius: 8px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+  .mini-checkbox { width: 18px; height: 18px; border-radius: 5px; border: 2px solid; flex-shrink: 0; }
+  .mini-task span { font-size: 13px; }
+  .view-more { background: none; border: none; cursor: pointer; font-size: 12px; font-weight: 500; text-align: left; padding: 4px 0; }
+
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 24px; }
+  .modal { background: #fff; border-radius: 16px; padding: 28px; width: 100%; max-width: 400px; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+  .modal h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 22px; font-weight: 400; margin-bottom: 20px; }
+  .field { margin-bottom: 16px; }
+  .field-label { font-size: 11px; color: #8B8680; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 6px; }
+  .field input, .field select { width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #E0DDD8; font-size: 14px; outline: none; }
+  .field select { font-size: 13px; cursor: pointer; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row > div { flex: 1; }
+  .day-pick { display: flex; gap: 4px; flex-wrap: wrap; }
+  .day-pick button { flex: 1; padding: 8px 4px; border-radius: 8px; border: 1px solid #E0DDD8; background: transparent; color: #6B6560; font-size: 11px; font-weight: 500; cursor: pointer; }
+  .day-pick button.sel { border: 2px solid #4A6D8C; background: #4A6D8C; color: #fff; }
+  .modal-btns { display: flex; gap: 10px; margin-top: 20px; }
+  .modal-btns button { flex: 1; padding: 12px; border-radius: 10px; font-size: 14px; cursor: pointer; font-weight: 500; }
+  .btn-cancel { border: 1px solid #E0DDD8; background: transparent; color: #6B6560; }
+  .btn-confirm { border: none; background: #5B7A58; color: #fff; font-weight: 600; }
+  .btn-delete { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #E8C4C4; background: #FFF5F5; font-size: 14px; cursor: pointer; color: #8B4D4D; font-weight: 600; margin-bottom: 8px; }
+
+  .confetti-piece { position: fixed; top: -10px; pointer-events: none; z-index: 200; animation: confettiFall 2s ease-in forwards; }
+  @keyframes confettiFall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+
+  @media (max-width: 400px) {
+    .header h1 { font-size: 20px; }
+    .progress-chip { padding: 6px 4px; }
+    .progress-chip .pct { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>
+const DAYS = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+const DAY_SHORT = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+const FREQ_LABELS = { daily:"Daily", weekly:"Weekly", monthly:"Monthly", quarterly:"Quarterly", annual:"Annual" };
+const ZONES = ["All","Kitchen","Bathroom","Master Bedroom","Girls' Room","Bedrooms","Living Room","Whole House","Garage","Basement","Patio/Deck","Laundry","Entryway","Exterior"];
+
+const FREQ_COLORS = {
+  daily:     { bg:"#F0F4F0", border:"#8BA888", accent:"#5B7A58", tag:"#E8EFE7" },
+  weekly:    { bg:"#EFF3F8", border:"#7E9ABD", accent:"#4A6D8C", tag:"#E4ECF4" },
+  monthly:   { bg:"#FFF8F0", border:"#C9A96E", accent:"#8B7340", tag:"#FFF3E4" },
+  quarterly: { bg:"#F5F0F8", border:"#A088B8", accent:"#6B5080", tag:"#EDE6F4" },
+  annual:    { bg:"#FFF0F0", border:"#C08080", accent:"#8B4D4D", tag:"#FAE4E4" },
+};
+
+const DEFAULT_TASKS = {
+  daily: [
+    { id:"d1", name:"Wipe kitchen counters & stovetop", zone:"Kitchen" },
+    { id:"d2", name:"Load/unload dishwasher", zone:"Kitchen" },
+    { id:"d3", name:"Quick tidy — pick up toys & clutter", zone:"Whole House" },
+    { id:"d4", name:"Wipe dining table", zone:"Kitchen" },
+    { id:"d5", name:"Take out trash if full", zone:"Kitchen" },
+    { id:"d6", name:"One load of laundry (wash, dry, fold, put away)", zone:"Laundry" },
+    { id:"d7", name:"Wipe high chair & baby areas", zone:"Kitchen" },
+    { id:"d8", name:"Quick bathroom sink wipe", zone:"Bathroom" },
+  ],
+  weekly: {
+    Monday: [
+      { id:"w-mon1", name:"Deep clean kitchen — scrub sink, appliances, backsplash", zone:"Kitchen" },
+      { id:"w-mon2", name:"Clean microwave inside & out", zone:"Kitchen" },
+      { id:"w-mon3", name:"Wipe cabinet fronts & handles", zone:"Kitchen" },
+      { id:"w-mon4", name:"Clean out fridge — toss old food", zone:"Kitchen" },
+    ],
+    Tuesday: [
+      { id:"w-tue1", name:"Scrub toilet (inside & base)", zone:"Bathroom" },
+      { id:"w-tue2", name:"Clean tub/shower", zone:"Bathroom" },
+      { id:"w-tue3", name:"Wipe mirror & sink", zone:"Bathroom" },
+      { id:"w-tue4", name:"Wash bathroom floor", zone:"Bathroom" },
+      { id:"w-tue5", name:"Empty bathroom garbage", zone:"Bathroom" },
+      { id:"w-tue6", name:"Replace towels", zone:"Bathroom" },
+    ],
+    Wednesday: [
+      { id:"w-wed1", name:"Change & wash master bedding", zone:"Master Bedroom" },
+      { id:"w-wed2", name:"Dust nightstands & dressers", zone:"Master Bedroom" },
+      { id:"w-wed3", name:"Change & wash girls' bedding", zone:"Girls' Room" },
+      { id:"w-wed4", name:"Tidy girls' room — toys, books, clothes", zone:"Girls' Room" },
+      { id:"w-wed5", name:"Dust bedroom surfaces", zone:"Bedrooms" },
+    ],
+    Thursday: [
+      { id:"w-thu1", name:"Dust living room — shelves, TV, decor", zone:"Living Room" },
+      { id:"w-thu2", name:"Wipe light switches & door handles", zone:"Whole House" },
+      { id:"w-thu3", name:"Fluff & straighten couch cushions", zone:"Living Room" },
+      { id:"w-thu4", name:"Wipe windowsills", zone:"Whole House" },
+      { id:"w-thu5", name:"Organize entryway — shoes, coats, bags", zone:"Entryway" },
+    ],
+    Friday: [
+      { id:"w-fri1", name:"Vacuum all carpeted areas", zone:"Whole House" },
+      { id:"w-fri2", name:"Sweep hardwood floors", zone:"Whole House" },
+      { id:"w-fri3", name:"Mop hardwood floors", zone:"Whole House" },
+      { id:"w-fri4", name:"Vacuum stairs if applicable", zone:"Whole House" },
+    ],
+    Saturday: [
+      { id:"w-sat1", name:"Catch-up on anything missed this week", zone:"Whole House" },
+      { id:"w-sat2", name:"Take recycling & cardboard out", zone:"Garage" },
+      { id:"w-sat3", name:"Wipe washer/dryer exterior", zone:"Laundry" },
+      { id:"w-sat4", name:"Quick garage tidy", zone:"Garage" },
+    ],
+    Sunday: [
+      { id:"w-sun1", name:"Finish all remaining laundry", zone:"Laundry" },
+      { id:"w-sun2", name:"Prep for the week — plan meals, set out clothes", zone:"Whole House" },
+      { id:"w-sun3", name:"Restock cleaning supplies if needed", zone:"Whole House" },
+      { id:"w-sun4", name:"Quick fridge check before grocery run", zone:"Kitchen" },
+    ],
+  },
+  monthly: [
+    { id:"m1", name:"Deep clean oven", zone:"Kitchen" },
+    { id:"m2", name:"Clean inside of microwave thoroughly", zone:"Kitchen" },
+    { id:"m3", name:"Wipe baseboards throughout house", zone:"Whole House" },
+    { id:"m4", name:"Dust ceiling fans & light fixtures", zone:"Whole House" },
+    { id:"m5", name:"Vacuum under furniture & couch cushions", zone:"Living Room" },
+    { id:"m6", name:"Clean interior windows", zone:"Whole House" },
+    { id:"m7", name:"Deep clean bathroom grout & behind toilet", zone:"Bathroom" },
+    { id:"m8", name:"Wash shower curtain/liner", zone:"Bathroom" },
+    { id:"m9", name:"Sweep garage floor", zone:"Garage" },
+    { id:"m10", name:"Sweep patio/deck", zone:"Patio/Deck" },
+    { id:"m11", name:"Organize one closet or set of drawers", zone:"Whole House" },
+    { id:"m12", name:"Clean all mirrors", zone:"Whole House" },
+    { id:"m13", name:"Wipe down all door frames", zone:"Whole House" },
+    { id:"m14", name:"Clean trash cans (wash inside & out)", zone:"Whole House" },
+    { id:"m15", name:"Vacuum/clean basement", zone:"Basement" },
+    { id:"m16", name:"Wash baby toys & gear", zone:"Whole House" },
+  ],
+  quarterly: [
+    { id:"q1", name:"Deep clean carpets — spot treat or steam", zone:"Whole House" },
+    { id:"q2", name:"Clean windows inside & out", zone:"Whole House" },
+    { id:"q3", name:"Flip/rotate mattresses", zone:"Bedrooms" },
+    { id:"q4", name:"Deep clean & organize garage", zone:"Garage" },
+    { id:"q5", name:"Deep clean basement", zone:"Basement" },
+    { id:"q6", name:"Wash walls & remove scuff marks", zone:"Whole House" },
+    { id:"q7", name:"Clean all light fixtures & lampshades", zone:"Whole House" },
+    { id:"q8", name:"Deep organize pantry", zone:"Kitchen" },
+    { id:"q9", name:"Thorough fridge & freezer cleanout", zone:"Kitchen" },
+    { id:"q10", name:"Clean patio furniture", zone:"Patio/Deck" },
+    { id:"q11", name:"Clean dryer lint trap & vent area", zone:"Laundry" },
+    { id:"q12", name:"Purge kids' outgrown clothes & toys", zone:"Girls' Room" },
+  ],
+  annual: [
+    { id:"a1", name:"Professional carpet cleaning (or deep DIY)", zone:"Whole House" },
+    { id:"a2", name:"Full window wash — inside & out", zone:"Whole House" },
+    { id:"a3", name:"Replace HVAC filters", zone:"Whole House" },
+    { id:"a4", name:"Clean dryer vent thoroughly", zone:"Laundry" },
+    { id:"a5", name:"Power wash patio/deck", zone:"Patio/Deck" },
+    { id:"a6", name:"Power wash driveway & walkways", zone:"Exterior" },
+    { id:"a7", name:"Deep clean behind & under all appliances", zone:"Kitchen" },
+    { id:"a8", name:"Shampoo upholstered furniture", zone:"Living Room" },
+    { id:"a9", name:"Check & test smoke/CO detectors", zone:"Whole House" },
+    { id:"a10", name:"Clean gutters", zone:"Exterior" },
+    { id:"a11", name:"Full garage cleanout & organization", zone:"Garage" },
+    { id:"a12", name:"Deep clean basement storage & organize", zone:"Basement" },
+    { id:"a13", name:"Wash all curtains & blinds", zone:"Whole House" },
+    { id:"a14", name:"Clean/seal hardwood floors if needed", zone:"Whole House" },
+  ],
+};
+
+// --- Storage helpers (safe for file:// on mobile) ---
+function storageGet(key) {
+  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : null; } catch(e) { return null; }
+}
+function storageSet(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) {}
+}
+
+// --- State ---
+let tasks = storageGet('hcp-tasks') || JSON.parse(JSON.stringify(DEFAULT_TASKS));
+let completions = storageGet('hcp-completions') || {};
+let activeView = 'today';
+let selectedDay = getTodayDayName();
+let zoneFilter = 'All';
+let showSettings = false;
+let showAddModal = false;
+let editingTask = null;
+let newTask = { name:'', zone:'Kitchen', frequency:'daily', day:'Monday' };
+
+function persist() {
+  storageSet('hcp-tasks', tasks);
+  storageSet('hcp-completions', completions);
+}
+
+function getTodayDayName() {
+  const d = new Date().getDay();
+  return DAYS[d === 0 ? 6 : d - 1];
+}
+function getDateStr() { return new Date().toISOString().split('T')[0]; }
+function getWeekKey() {
+  const d = new Date(); const day = d.getDay();
+  const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+  return new Date(d.setDate(diff)).toISOString().split('T')[0];
+}
+function getMonthKey() { const d = new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); }
+function getQuarterKey() { const d = new Date(); return d.getFullYear()+'-Q'+Math.ceil((d.getMonth()+1)/3); }
+function getYearKey() { return ''+new Date().getFullYear(); }
+
+function isComplete(id, pk) { return !!completions[id+':'+pk]; }
+function toggleComplete(id, pk) {
+  const k = id+':'+pk;
+  if (completions[k]) delete completions[k]; else completions[k] = Date.now();
+  persist(); render();
+  // Check if all done
+  const vt = getViewTasks();
+  const allDone = vt.length > 0 && vt.every(t => isComplete(t.id, t._pk));
+  if (allDone && completions[k]) showConfetti();
+}
+
+function getViewTasks() {
+  let result = [];
+  const ds = getDateStr(), wk = getWeekKey(), mk = getMonthKey(), qk = getQuarterKey(), yk = getYearKey();
+  const today = getTodayDayName();
+  if (activeView === 'today') {
+    result = [
+      ...tasks.daily.map(t => ({...t, _freq:'daily', _pk:ds})),
+      ...(tasks.weekly[today]||[]).map(t => ({...t, _freq:'weekly', _pk:wk})),
+    ];
+  } else if (activeView === 'daily') {
+    result = tasks.daily.map(t => ({...t, _freq:'daily', _pk:ds}));
+  } else if (activeView === 'weekly') {
+    result = (tasks.weekly[selectedDay]||[]).map(t => ({...t, _freq:'weekly', _pk:wk, _day:selectedDay}));
+  } else if (activeView === 'monthly') {
+    result = tasks.monthly.map(t => ({...t, _freq:'monthly', _pk:mk}));
+  } else if (activeView === 'quarterly') {
+    result = tasks.quarterly.map(t => ({...t, _freq:'quarterly', _pk:qk}));
+  } else if (activeView === 'annual') {
+    result = tasks.annual.map(t => ({...t, _freq:'annual', _pk:yk}));
+  }
+  if (zoneFilter !== 'All') result = result.filter(t => t.zone === zoneFilter);
+  return result;
+}
+
+function getProgress(freq) {
+  let list = [], pk = '';
+  if (freq === 'daily') { list = tasks.daily; pk = getDateStr(); }
+  else if (freq === 'weekly') { list = DAYS.flatMap(d => tasks.weekly[d]||[]); pk = getWeekKey(); }
+  else if (freq === 'monthly') { list = tasks.monthly; pk = getMonthKey(); }
+  else if (freq === 'quarterly') { list = tasks.quarterly; pk = getQuarterKey(); }
+  else if (freq === 'annual') { list = tasks.annual; pk = getYearKey(); }
+  const total = list.length, done = list.filter(t => isComplete(t.id, pk)).length;
+  return { total, done, pct: total ? Math.round(done/total*100) : 0 };
+}
+
+function addTask() {
+  if (!newTask.name.trim()) return;
+  const id = 'custom-'+Date.now();
+  const t = { id, name: newTask.name.trim(), zone: newTask.zone, custom: true };
+  if (newTask.frequency === 'daily') tasks.daily.push(t);
+  else if (newTask.frequency === 'weekly') { if (!tasks.weekly[newTask.day]) tasks.weekly[newTask.day]=[]; tasks.weekly[newTask.day].push(t); }
+  else tasks[newTask.frequency].push(t);
+  persist();
+  newTask = { name:'', zone:'Kitchen', frequency:'daily', day:'Monday' };
+  showAddModal = false;
+  render();
+}
+
+function deleteTask(id, freq, day) {
+  if (freq === 'daily') tasks.daily = tasks.daily.filter(t => t.id !== id);
+  else if (freq === 'weekly' && day) tasks.weekly[day] = (tasks.weekly[day]||[]).filter(t => t.id !== id);
+  else tasks[freq] = tasks[freq].filter(t => t.id !== id);
+  persist(); editingTask = null; render();
+}
+
+function resetPeriod() {
+  const pk = activeView==='weekly'?getWeekKey():activeView==='monthly'?getMonthKey():activeView==='quarterly'?getQuarterKey():getYearKey();
+  Object.keys(completions).forEach(k => { if (k.endsWith(':'+pk)) delete completions[k]; });
+  persist(); render();
+}
+
+function showConfetti() {
+  const colors = ['#5B7A58','#8BA888','#C9A96E','#A088B8','#C08080','#4A6D8C'];
+  for (let i = 0; i < 30; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    el.style.left = Math.random()*100+'%';
+    el.style.width = (Math.random()*8+4)+'px';
+    el.style.height = (Math.random()*8+4)+'px';
+    el.style.background = colors[Math.floor(Math.random()*colors.length)];
+    el.style.borderRadius = Math.random()>0.5?'50%':'2px';
+    el.style.animationDuration = (1.5+Math.random()*2)+'s';
+    el.style.animationDelay = (Math.random()*0.5)+'s';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 4000);
+  }
+}
+
+function esc(s) { const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+
+function render() {
+  const today = new Date();
+  const todayDay = getTodayDayName();
+  const vt = getViewTasks();
+  const vDone = vt.filter(t => isComplete(t.id, t._pk)).length;
+  const vTotal = vt.length;
+  const vPct = vTotal ? Math.round(vDone/vTotal*100) : 0;
+
+  let html = '';
+
+  // Header
+  html += '<div class="header">';
+  html += '<div class="header-top"><div>';
+  html += '<h1>Home Care Planner</h1>';
+  html += '<div class="date">'+today.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})+'</div>';
+  html += '</div><div class="header-actions">';
+  html += '<button class="btn-settings" onclick="showSettings=!showSettings;render()">⚙</button>';
+  html += '<button class="btn-add" onclick="showAddModal=true;render()">+ Add Task</button>';
+  html += '</div></div>';
+
+  // Progress chips
+  html += '<div class="progress-row">';
+  for (const freq of Object.keys(FREQ_LABELS)) {
+    const p = getProgress(freq), c = FREQ_COLORS[freq];
+    html += '<div class="progress-chip" style="background:'+c.tag+'">';
+    html += '<div class="pct" style="color:'+c.accent+'">'+p.pct+'%</div>';
+    html += '<div class="lbl" style="color:'+c.accent+'">'+FREQ_LABELS[freq]+'</div></div>';
+  }
+  html += '</div>';
+
+  // Tabs
+  html += '<div class="tabs">';
+  const tabList = [{k:'today',l:'📋 Today'},{k:'daily',l:'Daily'},{k:'weekly',l:'Weekly'},{k:'monthly',l:'Monthly'},{k:'quarterly',l:'Quarterly'},{k:'annual',l:'Annual'}];
+  for (const t of tabList) {
+    html += '<button class="tab'+(activeView===t.k?' active':'')+'" onclick="activeView=\''+t.k+'\';zoneFilter=\'All\';render()">'+t.l+'</button>';
+  }
+  html += '</div></div>';
+
+  // Settings
+  if (showSettings) {
+    html += '<div class="settings-panel">';
+    html += '<label>Zone:</label>';
+    html += '<select onchange="zoneFilter=this.value;render()">';
+    for (const z of ZONES) html += '<option'+(zoneFilter===z?' selected':'')+'>'+z+'</option>';
+    html += '</select>';
+    if (activeView!=='today'&&activeView!=='daily') {
+      html += '<button class="btn-reset" onclick="resetPeriod()">Reset Period</button>';
+    }
+    html += '</div>';
+  }
+
+  // Day selector
+  if (activeView === 'weekly') {
+    html += '<div class="day-selector">';
+    for (let i=0;i<7;i++) {
+      const d=DAYS[i], cls='day-btn'+(selectedDay===d?' active':'')+(d===todayDay&&selectedDay!==d?' today':'');
+      html += '<button class="'+cls+'" onclick="selectedDay=\''+d+'\';render()">'+DAY_SHORT[i]+'</button>';
+    }
+    html += '</div>';
+  }
+
+  // Main
+  html += '<div class="main">';
+
+  // View header
+  const viewTitle = activeView==='today'?todayDay+"'s Tasks":activeView==='weekly'?selectedDay:FREQ_LABELS[activeView];
+  html += '<div class="view-header"><div><h2>'+viewTitle+'</h2>';
+  html += '<div class="sub">'+vDone+' of '+vTotal+' complete</div></div>';
+  html += '<div class="ring" style="background:conic-gradient(#5B7A58 '+(vPct*3.6)+'deg, #E8E6E1 0deg)">';
+  html += '<div class="ring-inner">'+vPct+'%</div></div></div>';
+
+  // Progress bar
+  html += '<div class="progress-bar"><div class="progress-fill" style="width:'+vPct+'%"></div></div>';
+
+  // Tasks
+  if (vt.length === 0) {
+    html += '<div class="empty"><div class="icon">✨</div><div class="msg">No tasks here. Add one or switch views!</div></div>';
+  } else {
+    html += '<div class="task-list">';
+    for (const t of vt) {
+      const done = isComplete(t.id, t._pk), c = FREQ_COLORS[t._freq];
+      html += '<div class="task-card'+(done?' done':'')+'" onclick="toggleComplete(\''+t.id+'\',\''+t._pk+'\')">';
+      html += '<div class="checkbox'+(done?' checked':'')+'" style="border-color:'+(done?'#5B7A58':c.border)+'"></div>';
+      html += '<div class="task-info"><div class="task-name'+(done?' struck':'')+'">'+esc(t.name)+'</div>';
+      html += '<div class="task-tags"><span class="tag" style="background:'+c.tag+';color:'+c.accent+'">'+FREQ_LABELS[t._freq]+'</span>';
+      html += '<span class="tag tag-zone">'+esc(t.zone)+'</span></div></div>';
+      if (t.custom) {
+        html += '<button class="task-delete" onclick="event.stopPropagation();editingTask={id:\''+t.id+'\',name:\''+esc(t.name).replace(/'/g,"\\'")+'\',zone:\''+t.zone+'\',_freq:\''+t._freq+'\',_day:\''+(t._day||'')+'\'};render()">•••</button>';
+      }
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+
+  // Today extras
+  if (activeView === 'today') {
+    const extras = ['monthly','quarterly','annual'];
+    for (const freq of extras) {
+      const p = getProgress(freq), c = FREQ_COLORS[freq];
+      const pk = freq==='monthly'?getMonthKey():freq==='quarterly'?getQuarterKey():getYearKey();
+      let ft = tasks[freq].filter(t => zoneFilter==='All'||t.zone===zoneFilter);
+      const pending = ft.filter(t => !isComplete(t.id, pk));
+      if (pending.length === 0) continue;
+      html += '<div class="section-title"><h3 style="color:'+c.accent+'">'+FREQ_LABELS[freq]+' — '+p.done+'/'+p.total+' done</h3>';
+      html += '<span style="font-size:11px;color:'+c.accent+';font-weight:500">'+p.pct+'%</span></div>';
+      html += '<div class="section-tasks">';
+      const show = pending.slice(0,3);
+      for (const t of show) {
+        html += '<div class="mini-task" style="background:'+c.bg+';border:1px solid '+c.border+'30" onclick="toggleComplete(\''+t.id+'\',\''+pk+'\')">';
+        html += '<div class="mini-checkbox" style="border-color:'+c.border+'"></div>';
+        html += '<span>'+esc(t.name)+'</span></div>';
+      }
+      if (pending.length > 3) {
+        html += '<button class="view-more" style="color:'+c.accent+'" onclick="activeView=\''+freq+'\';render()">+'+(pending.length-3)+' more → View all</button>';
+      }
+      html += '</div>';
+    }
+  }
+
+  html += '</div>'; // main
+
+  // Add Modal
+  if (showAddModal) {
+    html += '<div class="modal-overlay" onclick="showAddModal=false;render()"><div class="modal" onclick="event.stopPropagation()">';
+    html += '<h3>Add New Task</h3>';
+    html += '<div class="field"><span class="field-label">Task Name</span>';
+    html += '<input id="newTaskName" placeholder="e.g., Wipe down pantry shelves" value="'+esc(newTask.name)+'" oninput="newTask.name=this.value"></div>';
+    html += '<div class="field-row"><div class="field"><span class="field-label">Frequency</span>';
+    html += '<select onchange="newTask.frequency=this.value;render()">';
+    for (const [k,v] of Object.entries(FREQ_LABELS)) html += '<option value="'+k+'"'+(newTask.frequency===k?' selected':'')+'>'+v+'</option>';
+    html += '</select></div><div class="field"><span class="field-label">Zone</span>';
+    html += '<select onchange="newTask.zone=this.value">';
+    for (const z of ZONES.filter(z=>z!=='All')) html += '<option'+(newTask.zone===z?' selected':'')+'>'+z+'</option>';
+    html += '</select></div></div>';
+    if (newTask.frequency === 'weekly') {
+      html += '<div class="field"><span class="field-label">Day of Week</span><div class="day-pick">';
+      for (let i=0;i<7;i++) {
+        html += '<button class="'+(newTask.day===DAYS[i]?'sel':'')+'" onclick="newTask.day=\''+DAYS[i]+'\';render()">'+DAY_SHORT[i]+'</button>';
+      }
+      html += '</div></div>';
+    }
+    html += '<div class="modal-btns"><button class="btn-cancel" onclick="showAddModal=false;render()">Cancel</button>';
+    html += '<button class="btn-confirm" onclick="addTask()">Add Task</button></div>';
+    html += '</div></div>';
+  }
+
+  // Edit modal
+  if (editingTask) {
+    html += '<div class="modal-overlay" onclick="editingTask=null;render()"><div class="modal" onclick="event.stopPropagation()" style="max-width:340px;text-align:center">';
+    html += '<h3 style="font-size:16px;font-family:DM Sans,sans-serif;font-weight:600">'+esc(editingTask.name)+'</h3>';
+    html += '<p style="font-size:13px;color:#8B8680;margin-bottom:20px">'+esc(editingTask.zone)+'</p>';
+    html += '<button class="btn-delete" onclick="deleteTask(\''+editingTask.id+'\',\''+editingTask._freq+'\',\''+editingTask._day+'\')">Delete Task</button>';
+    html += '<button class="btn-cancel" style="width:100%;padding:12px;border-radius:10px" onclick="editingTask=null;render()">Cancel</button>';
+    html += '</div></div>';
+  }
+
+  document.getElementById('app').innerHTML = html;
+
+  // Focus input if add modal is open
+  if (showAddModal) { const inp = document.getElementById('newTaskName'); if (inp) inp.focus(); }
+}
+
+try { 
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', render);
+  } else {
+    render(); 
+  }
+} catch(e) { 
+  document.getElementById('app').innerHTML = '<div style="padding:40px;color:red;">Error: '+e.message+'</div>'; 
+}
+</script>
+</body>
+</html>
